@@ -1,0 +1,37 @@
+.formContainer {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .formContainer h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .formContainer label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .formContainer input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .formContainer select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .formContainer button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #337ab7;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
