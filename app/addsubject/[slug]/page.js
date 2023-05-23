@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import styles from "./AddSubject.module.css";
+import styles from ".././AddSubject.module.css";
 import axios from "axios";
 // get the course name from api and display it in the dropdown
 // const getCourses = () => {
@@ -10,13 +10,29 @@ import axios from "axios";
 //   });
 // };
 
-const AddSubject = () => {
+const AddSubject = ({params}) => {
+
+
   // State variables for subject details
-  const [subjectName, setSubjectName] = useState("");
-  const [totalTheoryClasses, setTotalTheoryClasses] = useState("");
-  const [totalPracticalClasses, setTotalPracticalClasses] = useState("");
-  const [totalITPClasses, setTotalITPClasses] = useState("");
-  const [selectedCourse, setSelectedCourse] = useState(""); // State variable for selected course
+  const [subjectDetails, setSubjectDetails] = useState({});
+
+  
+  useEffect(() => {
+    const id = params.slug;
+    axios.get(`http://localhost:3131/subjects/${id}`).then((res) => {
+      setSubjectDetails(res.data[0]);
+      console.log(res.data[0]);
+    });
+  }, [params])
+
+
+  console.log(subjectDetails.sub_name)
+  // State variables for subject details
+  const [subjectName, setSubjectName] = useState(subjectDetails.sub_name);
+  const [totalTheoryClasses, setTotalTheoryClasses] = useState(subjectDetails.total_theory);
+  const [totalPracticalClasses, setTotalPracticalClasses] = useState(subjectDetails.total_practical);
+  const [totalITPClasses, setTotalITPClasses] = useState(subjectDetails.total_itp);
+  const [selectedCourse, setSelectedCourse] = useState(subjectDetails.course_id); // State variable for selected course
   const [courseDropdown, setCourseDropdown] = useState([]); // State variable for course dropdown
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,25 +47,17 @@ const AddSubject = () => {
       console.log(" course data ", res.data);
     });
   }, []);
+// fetch the subject details from the database
 
+
+
+  // console.log(subjectDetails[0].sub_name)
   // add the subject details to the database
-  const addSubject = () => {
-    axios
-      .post("http://localhost:3131/subjects", {
-        sub_name: subjectName,
-        total_theory: totalTheoryClasses,
-        total_practical: totalPracticalClasses,
-        total_itp: totalITPClasses,
-        course_id: selectedCourse,
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
-  };
+
 
   return (
     <>
-      <h2>Add Subject</h2>
+      <h2 className={styles.edit}>Edit Subject</h2>
       <form className={styles.subjectForm} onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
           <label htmlFor="subjectName">Subject Name:</label>
@@ -121,7 +129,7 @@ const AddSubject = () => {
           </select>
         </div>
         <div className={styles.buttonWrapper}>
-          <button onClick={addSubject} type="submit">
+          <button type="submit">
             Submit
           </button>
         </div>
