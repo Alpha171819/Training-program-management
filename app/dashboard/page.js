@@ -8,8 +8,6 @@ const Dashboard = () => {
         <ol className={styles.navList}>
           <li><a href="#">Home</a></li>
           <li><a href="#">Notification</a></li>
-          <li><a href="#">Upload</a></li>
-          <li><a href="#">Download</a></li>
           <li className={styles.training}>
             <a href="#">Training</a>
             <ol className={styles.subList}>
@@ -22,6 +20,8 @@ const Dashboard = () => {
             <ol className={styles.subList}>
               <li><a href="/addsubject">Add Subject</a></li>
               <li><a href="/view_subjects">View Sbujects</a></li>
+              <li><a href="/map_instrs">Map Instructors</a></li>
+
             </ol>
           </li>
           <li className={styles.training}>

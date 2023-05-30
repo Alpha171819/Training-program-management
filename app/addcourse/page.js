@@ -1,56 +1,39 @@
 "use client"
 import { useState } from 'react';
 import styles from './AddCourse.module.css';
-
+import axios from 'axios';
 
 const AddCoursePage = () => {
-  const [courseId, setCourseId] = useState('');
   const [courseName, setCourseName] = useState('');
   const [numberOfSubjects, setNumberOfSubjects] = useState('');
-  const [subjectNames, setSubjectNames] = useState('');
-  const [numberOfPeriods, setNumberOfPeriods] = useState('');
-  const [theoryCount, setTheoryCount] = useState('');
-  const [practicalCount, setPracticalCount] = useState('');
-  const [numberOfStudents, setNumberOfStudents] = useState('');
+  const [Studentcount, setStudentcount] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [duration, setDuration] = useState('');
   const [courseOfficer, setCourseOfficer] = useState('');
 
-  const handleSubmit = (e) => {
+ 
+
+  const AddCourse = (e) => {
     e.preventDefault();
+  const url = process.env.NEXT_PUBLIC_SERVER_URL
+    axios
+      .post(`${url}/courses`, {
+        course_name: courseName,
+        course_officer: courseOfficer,
+        course_strength: Studentcount,
+        start_date: startDate,
+        end_date: endDate,
+        no_subjects: numberOfSubjects,
 
-    // Perform any necessary actions with the entered course details
-    // For example, send a request to a backend API to save the course details
-
-    // Reset the form fields
-    setCourseId('');
-    setCourseName('');
-    setNumberOfSubjects('');
-    setSubjectNames('');
-    setNumberOfPeriods('');
-    setTheoryCount('');
-    setPracticalCount('');
-    setNumberOfStudents('');
-    setStartDate('');
-    setEndDate('');
-    setDuration('');
-    setCourseOfficer('');
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
   };
-
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Add Course</h2>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <label htmlFor="courseId" className={styles.label}>Course ID:</label>
-        <input
-          type="text"
-          id="courseId"
-          value={courseId}
-          onChange={(e) => setCourseId(e.target.value)}
-          required
-          className={styles.input}
-        />
+      <form  className={styles.form}>
   
         <label htmlFor="courseName" className={styles.label}>Course Name:</label>
         <input
@@ -72,56 +55,16 @@ const AddCoursePage = () => {
           className={styles.input}
         />
   
-        <label htmlFor="subjectNames" className={styles.label}>Subject Names:</label>
+        <label htmlFor="Studentcount" className={styles.label}>Number of Students:</label>
         <input
           type="text"
-          id="subjectNames"
-          value={subjectNames}
-          onChange={(e) => setSubjectNames(e.target.value)}
+          id="Studentcount"
+          value={Studentcount}
+          onChange={(e) => setStudentcount(e.target.value)}
           required
           className={styles.input}
         />
-  
-        <label htmlFor="numberOfPeriods" className={styles.label}>Number of Periods:</label>
-        <input
-          type="number"
-          id="numberOfPeriods"
-          value={numberOfPeriods}
-          onChange={(e) => setNumberOfPeriods(e.target.value)}
-          required
-          className={styles.input}
-        />
-  
-        <label htmlFor="theoryCount" className={styles.label}>Theory Count:</label>
-        <input
-          type="number"
-          id="theoryCount"
-          value={theoryCount}
-          onChange={(e) => setTheoryCount(e.target.value)}
-          required
-          className={styles.input}
-        />
-  
-        <label htmlFor="practicalCount" className={styles.label}>Practical Count:</label>
-        <input
-          type="number"
-          id="practicalCount"
-          value={practicalCount}
-          onChange={(e) => setPracticalCount(e.target.value)}
-          required
-          className={styles.input}
-        />
-  
-        <label htmlFor="numberOfStudents" className={styles.label}>Number of Students:</label>
-        <input
-          type="number"
-          id="numberOfStudents"
-          value={numberOfStudents}
-          onChange={(e) => setNumberOfStudents(e.target.value)}
-          required
-          className={styles.input}
-        />
-  
+
         <label htmlFor="startDate" className={styles.label}>Start Date:</label>
         <input
           type="date"
@@ -141,31 +84,7 @@ const AddCoursePage = () => {
           required
           className={styles.input}
         />
-  
-        <label htmlFor="duration" className={styles.label}>Duration:</label>
-        <input
-          type="text"
-          id="duration"
-          value={duration}
-          onChange={(e) => setDuration(e.target.value)}
-          required
-          className={styles.input}
-        />
-  
 
-
-
-
-
-<label htmlFor="duration" className={styles.label}>Duration:</label>
-<input
-  type="text"
-  id="duration"
-  value={duration}
-  onChange={(e) => setDuration(e.target.value)}
-  required
-  className={styles.input}
-/>
 
 <label htmlFor="courseOfficer" className={styles.label}>Course Officer:</label>
 <input
@@ -177,7 +96,7 @@ const AddCoursePage = () => {
   className={styles.input}
 />
 
-<input type="submit" value="Submit" className={styles.submitButton} />
+<input type="submit" onClick={AddCourse} value="Submit" className={styles.submitButton} />
 </form>
 </div>
 );
@@ -187,3 +106,20 @@ const AddCoursePage = () => {
 };
 
 export default AddCoursePage;
+
+
+
+
+// var date = new Date();
+// console.log(date)
+// var tdate = date.getDate();
+// var month = date.getMonth() + 1;
+// var year = date.getUTCFullYear();
+// if (month < 10) {
+//     month = '0' + month;
+// }
+// if (tdate < 10) {
+//     tdate = '0' + tdate;
+// }
+// var minDate = year + '-' + month + '-' + tdate;
+// $('#return').attr('min', minDate);

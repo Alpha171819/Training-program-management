@@ -25,8 +25,11 @@ const AddSubject = () => {
     // Redirect to another page
   };
 
+  const url = process.env.NEXT_PUBLIC_SERVER_URL
+
+
   useEffect(() => {
-    axios.get("http://localhost:3131/courses").then((res) => {
+    axios.get(`${url}/courses`).then((res) => {
       setCourseDropdown(res.data);
       console.log(" course data ", res.data);
     });
@@ -35,7 +38,7 @@ const AddSubject = () => {
   // add the subject details to the database
   const addSubject = () => {
     axios
-      .post("http://localhost:3131/subjects", {
+      .post(`${url}/subjects`, {
         sub_name: subjectName,
         total_theory: totalTheoryClasses,
         total_practical: totalPracticalClasses,

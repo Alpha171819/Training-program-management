@@ -6,8 +6,10 @@ import axios from "axios";
 const Home = () => {
   const [data, setDate] = useState([]);
 
+  const url = process.env.NEXT_PUBLIC_SERVER_URL
+
   useEffect(() => {
-    axios.get('http://192.168.13.136:3131/courses').then((res) => {
+    axios.get(`${url}/courses`).then((res) => {
       const updatedData = res.data.map((item) => {
         const startDate = new Date(item.start_date);
         const endDate = new Date(item.end_date);
@@ -59,14 +61,6 @@ const Home = () => {
                 <button type="submit" className={styles.button} formAction="sub2">
                   x
                 </button></div>
-       
-       
-         
-            
-                
-             
-       
-       
           </li>
          ))
         }

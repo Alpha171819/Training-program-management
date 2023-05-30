@@ -4,16 +4,21 @@ import axios from "axios";
 import styles from "./view_subjects.module.css";
 import Link from "next/link";
 
+
+
 const TableComponent = () => {
   const [data, setData] = useState([]);
+  const url = process.env.NEXT_PUBLIC_SERVER_URL
 
   useEffect(() => {
-    axios.get("http://localhost:3131/subjects").then((res) => {
+    axios.get(`${url}/subjects`).then((res) => {
       setData(res.data);
       console.log(res.data);
     });
   }, []);
 
+
+console.log(url)
   return (
     <div className={styles.container}>
       <h2>Subjects</h2>
