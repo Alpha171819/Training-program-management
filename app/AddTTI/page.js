@@ -8,22 +8,10 @@ const AddTTI = () => {
   const [instname, setinstname] = useState("");
   const [instrank, setinstrank] = useState("");
   const [instcode, setinstcode] = useState("");
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const [options, setOptions] = useState([]);
-
   
 
 
-  const handleCheckboxChange = (event) => {
-    const { value, checked } = event.target;
 
-    if (checked && !selectedOptions.includes(value)) {
-      setSelectedOptions([...selectedOptions, value]);
-    } else if (!checked && selectedOptions.includes(value)) {
-      const updatedOptions = selectedOptions.filter((option) => option !== value);
-      setSelectedOptions(updatedOptions);
-    }
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -62,13 +50,7 @@ const AddTTI = () => {
         <input type="text" id="rank" name="rank" value={instrank}
             onChange={(e) => setinstrank(e.target.value)} />
 
-        <label htmlFor="subjects">Subjects:</label>
-        <div className="dropdown">
-      <button className="dropdown-btn">
-        {selectedOptions.length > 0 ? selectedOptions.join(', ') : 'Select Options'}
-      </button>
-     
-    </div>
+       
        
 
         <button onClick={addinstr} type="submit">Submit</button>
