@@ -50,9 +50,6 @@ const AddTTI = () => {
         <input type="text" id="rank" name="rank" value={instrank}
             onChange={(e) => setinstrank(e.target.value)} />
 
-       
-       
-
         <button onClick={addinstr} type="submit">Submit</button>
       </form>
     </div>
