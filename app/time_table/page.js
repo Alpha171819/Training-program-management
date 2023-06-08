@@ -21,11 +21,6 @@ const getWeekNumber = (startDate, currentDate) => {
   return weeksDifference + 1; // Adding 1 to make the week numbers start from 1
 };
 
-
-
-
-
-
   const url = process.env.NEXT_PUBLIC_SERVER_URL
 
   useEffect(() => {
@@ -153,7 +148,7 @@ const getWeekNumber = (startDate, currentDate) => {
        <div className={`${styles.grid_item} ${styles.item103}`}>131/152</div>
        <div className={`${styles.grid_item} ${styles.item104}`}>HS/NPY/HNS/SSG/AKT</div>
        <div className={`${styles.grid_item} ${styles.item105}`}></div>
-       <div className={`${styles.grid_item} ${styles.item106}`}>Course offr: LtCol Harmeet Singh House Master</div>
+       <div className={`${styles.grid_item} ${styles.item106}`}>Course offficer : {course[0]?.course_officer}</div>
        <div className={`${styles.grid_item} ${styles.item107}`}>INSTRUCTOR</div>
        <div className={`${styles.grid_item} ${styles.item108}`}>Theory</div>
        <div className={`${styles.grid_item} ${styles.item109}`}>Practical</div>
