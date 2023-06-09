@@ -13,7 +13,7 @@ const TableComponent = () => {
       setData(res.data);
       console.log(res.data);
     });
-  }, []);
+  }, [url]);
 
   console.log(url);
   return (
