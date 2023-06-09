@@ -25,18 +25,25 @@ const AddSubject = () => {
     // Redirect to another page
   };
 
-  const url = process.env.NEXT_PUBLIC_SERVER_URL
-
+  const url = process.env.NEXT_PUBLIC_SERVER_URL;
 
   useEffect(() => {
     axios.get(`${url}/courses`).then((res) => {
       setCourseDropdown(res.data);
       console.log(" course data ", res.data);
     });
-  }, []);
+  }, [url]);
 
   // add the subject details to the database
   const addSubject = () => {
+    // ask before adding
+    if (
+      !window.confirm(
+        `Are you sure you want to add ${subjectName} to the database?`
+      )
+    )
+      return;
+
     axios
       .post(`${url}/subjects`, {
         sub_name: subjectName,

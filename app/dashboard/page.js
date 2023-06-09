@@ -40,7 +40,7 @@ const Dashboard = () => {
           <li className={styles.training}>
             <a href="/topics">Add Topics</a>
           </li><li className={styles.training}>
-            <a href="/displayTopics">view Topics</a>
+            <a href="/displayTopics">View Topics</a>
           </li>
          
         </ol>
