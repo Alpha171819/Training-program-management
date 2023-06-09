@@ -4,11 +4,9 @@ import axios from "axios";
 import styles from "./view_subjects.module.css";
 import Link from "next/link";
 
-
-
 const TableComponent = () => {
   const [data, setData] = useState([]);
-  const url = process.env.NEXT_PUBLIC_SERVER_URL
+  const url = process.env.NEXT_PUBLIC_SERVER_URL;
 
   useEffect(() => {
     axios.get(`${url}/subjects`).then((res) => {
@@ -17,8 +15,7 @@ const TableComponent = () => {
     });
   }, []);
 
-
-console.log(url)
+  console.log(url);
   return (
     <div className={styles.container}>
       <h2>Subjects</h2>
@@ -42,7 +39,7 @@ console.log(url)
               className={`${styles.col} ${styles["col-1"]}`}
               data-label="Job Id"
             >
-              {idx+1}
+              {idx + 1}
             </div>
             <div
               className={`${styles.col} ${styles["col-2"]}`}
@@ -62,10 +59,7 @@ console.log(url)
             >
               {item.total_practical}
             </div>
-            <Link
-              className={styles.button}
-              href={`/addsubject/${item.sub_id}`}
-            >
+            <Link className={styles.button} href={`/addsubject/${item.sub_id}`}>
               <p>EDIT</p>
             </Link>
 
@@ -89,11 +83,14 @@ const DeleteId = (id) => {
   // alert the user to delete the subject or not
   const areyousure = window.confirm("Are you sure you want to delete?");
   if (areyousure) {
-    axios.delete(`http://localhost:3131/subjects/${id}`).catch((error) => {
-      console.log(error);
-    });
-    // reload the page
-    window.location.reload();
+    axios
+      .delete(`http://localhost:3131/subjects/${id}`)
+      .catch((error) => {
+        console.log(error);
+      })
+      .then(() => {
+        window.location.reload();
+      });
   }
 };
 
