@@ -7,12 +7,16 @@ import axios from "axios";
 
 const TimeTable = () => {
   const [course, setcourse] = useState([]);
+  const [topics, setTopics] = useState([]);
+  const [subjects, setSubjects] = useState([]);
+
   //create a get request to get the instructors data
   const {
     startOfWeek,
     differenceInWeeks,
     endOfWeek,
     format,
+    sub,
   } = require("date-fns");
 
   const getWeekNumber = (startDate, currentDate) => {
@@ -20,8 +24,6 @@ const TimeTable = () => {
     const weeksDifference = differenceInWeeks(currentDate, startOfWeekDate);
     return weeksDifference + 1; // Adding 1 to make the week numbers start from 1
   };
-
-  const [getWeekDates, setgetWeekDates] = useState([]);
 
   // get the dates between two dates
   const getDates = (startDate, endDate) => {
@@ -56,6 +58,20 @@ const TimeTable = () => {
     axios.get(`${url}/courses`).then((res) => {
       setcourse(res.data);
       console.log(" course data ", res.data);
+    });
+  }, [url]);
+
+  useEffect(() => {
+    axios.get(`${url}/topics`).then((res) => {
+      setTopics(res.data);
+      console.log(" topics data ", res.data);
+    });
+  }, [url]);
+
+  useEffect(() => {
+    axios.get(`${url}/subjects`).then((res) => {
+      setSubjects(res.data);
+      console.log(" subjects data ", res.data);
     });
   }, [url]);
 
@@ -148,20 +164,16 @@ const TimeTable = () => {
           {formattedWeekDates[0]}
         </div>
         <div className={`${styles.grid_item} ${styles.item34}`}>
-          Adv RDBMS(T)
+          {subjects[0]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item35}`}>
-          Adv VAS(ITP)
+          {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item36}`}>
-          Introduction to DBMS, Advantage of DBMS over Files System, Various
-          types of DBMS available in the market, Data Model of DBMS, Level of
-          data abstraction, Entity Relationship Model & Entity
+          {topics[0]?.learning_obj}
         </div>
         <div className={`${styles.grid_item} ${styles.item37}`}>
-          Test for installation of online UPS, How to check the components like
-          MOV, Fuse, Transistors, Diodes, MOSFETs, IGBTs, Transformers &
-          Capacitors.
+          {topics[1]?.learning_obj}
         </div>
         <div className={`${styles.grid_item} ${styles.item38}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item39}`}>4/34</div>
@@ -176,19 +188,16 @@ const TimeTable = () => {
           {formattedWeekDates[1]}
         </div>
         <div className={`${styles.grid_item} ${styles.item46}`}>
-          Adv RDBMS(T)
+          {subjects[0]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item47}`}>
-          Adv VAS(ITP)
+          {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item48}`}>
-          Relationship Attributes, Relational Model, ER Diagram Representation,
-          Generalization, Aggregation, Relational Model & Relational Model
-          Concepts
+          {topics[2]?.learning_obj}
         </div>
         <div className={`${styles.grid_item} ${styles.item49}`}>
-          Checking of following, Inv card, Rectifiers Card, Control Card, Filter
-          cards, Examine common faults in UPS & Reasons and preventive measures
+          {topics[3]?.learning_obj}
         </div>
         <div className={`${styles.grid_item} ${styles.item50}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item51}`}>8/34</div>
@@ -202,10 +211,10 @@ const TimeTable = () => {
           {formattedWeekDates[2]}
         </div>
         <div className={`${styles.grid_item} ${styles.item58}`}>
-          Adv RDBMS(T)
+          {subjects[0]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item59}`}>
-          Adv VAS(ITP)
+          {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item60}`}>
           Data Definition Language (DDL), Data Manipulation Language (DML) &
@@ -228,10 +237,10 @@ const TimeTable = () => {
           {formattedWeekDates[3]}
         </div>
         <div className={`${styles.grid_item} ${styles.item70}`}>
-          Adv RDBMS(T)
+          {subjects[0]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item71}`}>
-          Adv VAS(ITP)
+          {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item72}`}>
           Additional operator & Functional Dependency
@@ -254,10 +263,10 @@ const TimeTable = () => {
           {formattedWeekDates[4]}
         </div>
         <div className={`${styles.grid_item} ${styles.item82}`}>
-          Adv RDBMS(T & P)
+          {subjects[0]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item83}`}>
-          Adv IT Trg(E)
+          {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item84}`}>
           Inference Rule, DBMS 1NF, 2NF, 3NF, 4NF, 5NF, SQL Server, Practical
@@ -283,10 +292,10 @@ const TimeTable = () => {
           {formattedWeekDates[5]}
         </div>
         <div className={`${styles.grid_item} ${styles.item94}`}>
-          Adv RDBMS(T & P)
+          {subjects[0]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item95}`}>
-          Adv VAS(ITP)
+          {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item96}`}>
           Installation Procedure of SQL server in a system, Create Database in
