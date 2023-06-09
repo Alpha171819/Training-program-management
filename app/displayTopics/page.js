@@ -14,7 +14,7 @@ const DisplayTopics = () => {
         .get(`${url}/topics`) // Replace with your API endpoint for fetching topics
         .then((res) => setTopics(res.data))
         .catch((error) => console.log(error));
-    }, []);
+    }, [url]);
     
     const deleteTopic = (id) => {
         axios

@@ -28,7 +28,7 @@ const AddTopic = () => {
         .then((res) => setSubjects(res.data))
         .catch((error) => console.log(error));
       
-    }, []);
+    }, [url]);
     const addTopicToDB = () => {
       const newTopic = {
         
