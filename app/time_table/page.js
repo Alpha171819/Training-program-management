@@ -145,7 +145,7 @@ const TimeTable = () => {
           A/N Classes
         </div>
         <div className={`${styles.grid_item} ${styles.item33}`}>
-          MON 08 May 23
+          {formattedWeekDates[0]}
         </div>
         <div className={`${styles.grid_item} ${styles.item34}`}>
           Adv RDBMS(T)
@@ -173,7 +173,7 @@ const TimeTable = () => {
           HNS/NPY/HNS/SSG/AKT
         </div>
         <div className={`${styles.grid_item} ${styles.item45}`}>
-          TUE 09 May 23
+          {formattedWeekDates[1]}
         </div>
         <div className={`${styles.grid_item} ${styles.item46}`}>
           Adv RDBMS(T)
@@ -199,7 +199,7 @@ const TimeTable = () => {
           HS/NPY/HNS/SSG/AKT
         </div>
         <div className={`${styles.grid_item} ${styles.item57}`}>
-          WED 10 May 23
+          {formattedWeekDates[2]}
         </div>
         <div className={`${styles.grid_item} ${styles.item58}`}>
           Adv RDBMS(T)
@@ -225,7 +225,7 @@ const TimeTable = () => {
           HS/NPY/HNS/SSG/AKT
         </div>
         <div className={`${styles.grid_item} ${styles.item69}`}>
-          THU 11 May 23
+          {formattedWeekDates[3]}
         </div>
         <div className={`${styles.grid_item} ${styles.item70}`}>
           Adv RDBMS(T)
@@ -251,7 +251,7 @@ const TimeTable = () => {
           HNS/NPY/HNS/SSG/AKT
         </div>
         <div className={`${styles.grid_item} ${styles.item81}`}>
-          FRI 12 May 23
+          {formattedWeekDates[4]}
         </div>
         <div className={`${styles.grid_item} ${styles.item82}`}>
           Adv RDBMS(T & P)
@@ -280,7 +280,7 @@ const TimeTable = () => {
         <div className={`${styles.grid_item} ${styles.item91}`}>3/3</div>
         <div className={`${styles.grid_item} ${styles.item92}`}>NRB</div>
         <div className={`${styles.grid_item} ${styles.item93}`}>
-          SAT 13 May 23
+          {formattedWeekDates[5]}
         </div>
         <div className={`${styles.grid_item} ${styles.item94}`}>
           Adv RDBMS(T & P)
