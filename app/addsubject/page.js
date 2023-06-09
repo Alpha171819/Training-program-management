@@ -32,7 +32,7 @@ const AddSubject = () => {
       setCourseDropdown(res.data);
       console.log(" course data ", res.data);
     });
-  }, []);
+  }, [url]);
 
   // add the subject details to the database
   const addSubject = () => {
