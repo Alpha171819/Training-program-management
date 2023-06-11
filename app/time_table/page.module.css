@@ -12,6 +12,12 @@
     padding: 10px;
 }
 
+.loading {
+  text-align: center;
+  margin-top: 20px;
+  font-size: xx-large;
+}
+
 .grid_container > div {
   background-color: rgb(255,255,255);
   border: 1px solid rgb(0,0,0);

@@ -81,14 +81,10 @@ const TimeTable = () => {
     // from the running subjects get the subject id and then get the subject name from the subjects table using the subject id
     // then get the topics from the topics table using the subject id
     // then get the learning objectives from the topics table using the subject id
-    if(runningSubjectsID.length === 0) return;
+    if (runningSubjectsID.length === 0) return;
     const getSubjectDetails = () => {
-      const sub1 =  axios.get(
-        `${url}/subjects/${runningSubjectsID[0]?.sub_id}`
-      );
-      const sub2 =  axios.get(
-        `${url}/subjects/${runningSubjectsID[1]?.sub_id}`
-      );
+      const sub1 = axios.get(`${url}/subjects/${runningSubjectsID[0]?.sub_id}`);
+      const sub2 = axios.get(`${url}/subjects/${runningSubjectsID[1]?.sub_id}`);
       axios.all([sub1, sub2]).then(
         axios.spread((...allData) => {
           const allData1 = allData[0];
@@ -113,6 +109,8 @@ const TimeTable = () => {
   console.log(weekNumber); // Output: 23
 
   const endOfWeekDate = endOfWeek(currentDate);
+
+  if (subjects.length === 0) return <div className={styles.loading}>Loading...</div>;
 
   return (
     <div className={styles.body}>
