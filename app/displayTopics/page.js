@@ -14,7 +14,9 @@ const DisplayTopics = () => {
       .get(`${url}/topics`) // Replace with your API endpoint for fetching topics
       .then((res) => setTopics(res.data))
       .catch((error) => {
-          console.error('error fetching topics, check api endpoint in displayTopics.js');
+        console.error(
+          "error fetching topics, check api endpoint in displayTopics.js"
+        );
         alert(
           "An error occured, if you are a developer, check the console for more information."
         );
@@ -22,8 +24,10 @@ const DisplayTopics = () => {
   }, [url]);
 
   const deleteTopic = (id) => {
+    // alert to confirm delete
+    if (!confirm("Are you sure you want to delete this topic?")) return;
     axios
-      .delete(`${url}/topics/${id}`)
+      .delete(`${url}/topic/${id}`)
       .then((res) => console.log(res.data))
       .catch((error) => console.log(error));
 

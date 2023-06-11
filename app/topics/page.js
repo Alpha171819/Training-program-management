@@ -30,6 +30,12 @@ const AddTopic = () => {
       
     }, [url]);
     const addTopicToDB = () => {
+
+      if (selectedSubject === '' || terminalObjective === '' || enablingObjective === '' || learningObjective === '' || L_D === '' || theoryClasses === '' || practicalClasses === '' || ITP === '' || eveningClasses === '') {
+        alert('Please fill all the fields');
+        return;
+      }
+      
       const newTopic = {
         
         cnt:0,
@@ -45,27 +51,27 @@ const AddTopic = () => {
         sub_id: selectedSubject,
 
       };
-  
+      
       axios
         .post(`${url}/topic`, newTopic)
-        .then((res) => console.log(res.data))
-        .catch((error) => console.log(error));
+        .then((res) => console.log('successfully posted', res.data.message))
+        .catch((error) => alert(error));
   
-      setSelectedSubject('');
-      setTerminalObjective('');
-      setEnablingObjective('');
-      setLearningObjective('');
-      setBloomLevel('');
-      setL_D('');
-      setTheoryClasses('');
-      setPracticalClasses('');
-      setITP('');
-      setEveningClasses('');
+      // setSelectedSubject('');
+      // setTerminalObjective('');
+      // setEnablingObjective('');
+      // setLearningObjective('');
+      // setBloomLevel('');
+      // setL_D('');
+      // setTheoryClasses('');
+      // setPracticalClasses('');
+      // setITP('');
+      // setEveningClasses('');
     };
   return (
     <div className={styles.container}>
       <h1>Add Topic</h1>
-      <form className={styles.form} onSubmit={addTopicToDB}>
+      <form className={styles.form}>
       <div className={styles.formGroup}>
           <label htmlFor="subject">Subject</label>
           <select
@@ -90,6 +96,7 @@ const AddTopic = () => {
             name="terminalObjective"
             id="terminalObjective"
             value={terminalObjective}
+            required={true}
             onChange={(e) => setTerminalObjective(e.target.value)}
           />
         </div>
@@ -101,6 +108,7 @@ const AddTopic = () => {
             name="enablingObjective"
             id="enablingObjective"
             value={enablingObjective}
+            required={true}
             onChange={(e) => setEnablingObjective(e.target.value)}
           />
         </div>
@@ -112,6 +120,7 @@ const AddTopic = () => {
             name="learningObjective"
             id="learningObjective"
             value={learningObjective}
+            required={true}
             onChange={(e) => setLearningObjective(e.target.value)}
           />
         </div>
@@ -133,6 +142,7 @@ const AddTopic = () => {
             type="number"
             name="L_D"
             id="L_D"
+            required={true}
             value={L_D}
             onChange={(e) => setL_D(e.target.value)}
           />
@@ -142,6 +152,7 @@ const AddTopic = () => {
           <label htmlFor="theoryClasses">Theory Classes</label>
           <input
             type="number"
+            required={true}
             name="theoryClasses"
             id="theoryClasses"
             value={theoryClasses}
@@ -154,6 +165,7 @@ const AddTopic = () => {
           <input
             type="number"
             name="practicalClasses"
+            required={true}
             id="practicalClasses"
             value={practicalClasses}
             onChange={(e) => setPracticalClasses(e.target.value)}
@@ -167,6 +179,7 @@ const AddTopic = () => {
             name="ITP"
             id="ITP"
             value={ITP}
+            required={true}
             onChange={(e) => setITP(e.target.value)}
           />
         </div>
@@ -178,11 +191,12 @@ const AddTopic = () => {
             name="eveningClasses"
             id="eveningClasses"
             value={eveningClasses}
+            required={true}
             onChange={(e) => setEveningClasses(e.target.value)}
           />
         </div>
 
-        <button className={styles.button} type="submit">Add Topic</button>
+        <button className={styles.button} type="button" onClick={addTopicToDB}>Add Topic</button>
       </form>
     </div>
   );
