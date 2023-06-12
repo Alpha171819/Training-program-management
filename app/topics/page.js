@@ -60,6 +60,12 @@ const AddTopic = () => {
         .then((res) => alert('successfully posted'))
         .catch((error) => alert(error));
   
+      
+        axios
+        .post(`${url}/addTopicReference`, newTopic)
+        .then((res) => alert('successfully posted'))
+        .catch((error) => alert(error));
+  
       // setSelectedSubject('');
       // setTerminalObjective('');
       // setEnablingObjective('');
