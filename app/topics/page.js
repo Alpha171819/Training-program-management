@@ -30,12 +30,13 @@ const AddTopic = () => {
       
     }, [url]);
     const addTopicToDB = () => {
-
+      // alert to confirm adding topic
+      if (!confirm('Are you sure you want to add this topic?')) return;
       if (selectedSubject === '' || terminalObjective === '' || enablingObjective === '' || learningObjective === '' || L_D === '' || theoryClasses === '' || practicalClasses === '' || ITP === '' || eveningClasses === '') {
         alert('Please fill all the fields');
         return;
       }
-      
+
       const newTopic = {
         
         cnt:0,
@@ -54,7 +55,7 @@ const AddTopic = () => {
       
       axios
         .post(`${url}/topic`, newTopic)
-        .then((res) => console.log('successfully posted', res.data.message))
+        .then((res) => alert('successfully posted'))
         .catch((error) => alert(error));
   
       // setSelectedSubject('');
@@ -71,6 +72,12 @@ const AddTopic = () => {
   return (
     <div className={styles.container}>
       <h1>Add Topic</h1>
+      <button
+        className={styles.topButton}
+        onClick={() => (window.location.href = "/displayTopics")}
+      >
+        View All Topics
+      </button>
       <form className={styles.form}>
       <div className={styles.formGroup}>
           <label htmlFor="subject">Subject</label>

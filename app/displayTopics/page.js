@@ -37,6 +37,7 @@ const DisplayTopics = () => {
   return (
     <div className={styles.container}>
       <h1>Topics</h1>
+     
       <table className={styles.table}>
         <thead>
           <tr>
