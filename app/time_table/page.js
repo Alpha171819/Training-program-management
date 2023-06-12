@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import axios from "axios";
+import { ru } from "date-fns/locale";
 
 // Example usage
 
@@ -9,6 +10,7 @@ const TimeTable = () => {
   const [course, setcourse] = useState([]);
   const [topics, setTopics] = useState([]);
   const [subjects, setSubjects] = useState([]);
+  const [runningSubjectsID, setRunningSubjectsID] = useState([]);
 
   //create a get request to get the instructors data
   const {
@@ -69,11 +71,37 @@ const TimeTable = () => {
   }, [url]);
 
   useEffect(() => {
-    axios.get(`${url}/subjects`).then((res) => {
-      setSubjects(res.data);
-      console.log(" subjects data ", res.data);
+    axios.get(`${url}/runningSubjects`).then((res) => {
+      setRunningSubjectsID(res.data);
+      console.log(" running subjects data ", res.data);
     });
   }, [url]);
+
+  useEffect(() => {
+    // from the running subjects get the subject id and then get the subject name from the subjects table using the subject id
+    // then get the topics from the topics table using the subject id
+    // then get the learning objectives from the topics table using the subject id
+    if (runningSubjectsID.length === 0) return;
+    const getSubjectDetails = () => {
+      const sub1 = axios.get(`${url}/subjects/${runningSubjectsID[0]?.sub_id}`);
+      const sub2 = axios.get(`${url}/subjects/${runningSubjectsID[1]?.sub_id}`);
+      axios.all([sub1, sub2]).then(
+        axios.spread((...allData) => {
+          const allData1 = allData[0];
+          const allData2 = allData[1];
+          console.log("allData1", allData1);
+          console.log("allData2", allData2);
+
+          setSubjects([allData1.data[0], allData2.data[0]]);
+        })
+      );
+    };
+
+    getSubjectDetails();
+    // console.log("subjects", subjects);
+  }, [runningSubjectsID, url]);
+
+  console.log("subjects", subjects);
 
   const startDate = new Date(course[0]?.start_date); // start date
 
@@ -81,6 +109,8 @@ const TimeTable = () => {
   console.log(weekNumber); // Output: 23
 
   const endOfWeekDate = endOfWeek(currentDate);
+
+  if (subjects.length === 0) return <div className={styles.loading}>Loading...</div>;
 
   return (
     <div className={styles.body}>

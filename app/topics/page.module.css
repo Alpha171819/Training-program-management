@@ -247,3 +247,16 @@
     }
 
    
+
+
+    /* style .topButton button to have width 50% and center it */
+.topButton {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: yellow;
+    font-size: larger;
+    padding: 5px;
+
+}
