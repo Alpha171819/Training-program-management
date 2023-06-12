@@ -34,6 +34,14 @@ const DisplayTopics = () => {
       .catch((error) => console.log(error));
 
     setTopics(topics.filter((topic) => topic.id !== id));
+
+    axios
+      .delete(`${url}/topicReference/${id}`)
+      .then((res) => console.log(res.data))
+      .catch((error) => console.log(error));
+
+    setTopics(topics.filter((topic) => topic.id !== id));
+
   };
 
   return (
