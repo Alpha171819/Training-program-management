@@ -37,11 +37,13 @@ const Home = () => {
     // alert to confirm delete
     if (!confirm("Are you sure you want to delete this course?")) return;
     axios
-      .delete(`${url}/course/${id}`)
-      .then((res) => console.log(res.data))
+      .delete(`${url}/courses/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        res.status(200).send("deleted");
+        window.location.reload();
+      })
       .catch((error) => console.log(error));
-
-    setDate(data.filter((course) => course.course_id !== id));
   }
 
   function calculateWeeks(start, end) {
