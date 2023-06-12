@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./page.module.css";
+import Dashboard from '../dashboard/page';
+
 
 const DisplayTopics = () => {
   const [topics, setTopics] = useState([]);
@@ -35,6 +37,8 @@ const DisplayTopics = () => {
   };
 
   return (
+    <div>
+      <Dashboard />
     <div className={styles.container}>
       <h1>Topics</h1>
      
@@ -79,6 +83,7 @@ const DisplayTopics = () => {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };

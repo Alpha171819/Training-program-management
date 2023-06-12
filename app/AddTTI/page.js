@@ -2,6 +2,8 @@
 import React, {  useState, useEffect } from "react";
 import styles from './AddTTI.module.css';
 import axios from 'axios';
+import Dashboard from '../dashboard/page';
+
 
 const AddTTI = () => {
 
@@ -34,6 +36,8 @@ const AddTTI = () => {
   };
 
   return (
+    <div>
+      <Dashboard />
     <div className={styles.formContainer}>
       <h2>Add TTI</h2>
       <form onSubmit={handleSubmit}>
@@ -52,6 +56,7 @@ const AddTTI = () => {
 
         <button onClick={addinstr} type="submit">Submit</button>
       </form>
+    </div>
     </div>
   );
 };

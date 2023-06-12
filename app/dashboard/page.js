@@ -4,18 +4,6 @@ import React, { useState, useEffect } from 'react';
 
 
 const Dashboard = () => {
-
-  const Marquee = () => {
-    const [position, setPosition] = useState(0);
-  
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setPosition((prevPosition) => prevPosition - 1);
-      }, 100); // Adjust the interval to control the speed of scrolling
-  
-      return () => clearInterval(interval);
-    }, []);
-  }
   
   return (
     <>
@@ -60,32 +48,6 @@ const Dashboard = () => {
         </ol>
       </nav>
 
-      <div className={styles.container}>
-        <div className={styles.leftBox}>
-
-        <div className="marquee">
-      
-      <div className="marquee-content">
-      <h2>Notifications</h2>
-          <p>Notification 1</p>
-          <p>Notification 2</p>
-          <p>Notification 3</p>
-      </div>
-    
-    </div>
-
-   
-
-        
-        </div>
-
-        <div className={styles.centerBox}>
-          <h2>Running Courses</h2>
-          <ol>
-            <li>Diploma 69 A & B</li>
-          </ol>
-        </div>
-      </div>
     </>
   );
 };

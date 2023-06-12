@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./view_subjects.module.css";
 import Link from "next/link";
+import Dashboard from '../dashboard/page';
+
 
 const TableComponent = () => {
   const [data, setData] = useState([]);
@@ -17,7 +19,10 @@ const TableComponent = () => {
 
   console.log(url);
   return (
+    <div>
+      <Dashboard />
     <div className={styles.container}>
+      
       <h2>Subjects</h2>
       <ul className={styles["responsive-table"]}>
         <li className={`${styles["table-header"]} ${styles.row} `}>
@@ -75,6 +80,7 @@ const TableComponent = () => {
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 };

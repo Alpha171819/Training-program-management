@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "../view_subjects/view_subjects.module.css";
 import axios from "axios";
+import Dashboard from '../dashboard/page';
+
 
 const Home = () => {
   const [data, setDate] = useState([]);
@@ -41,6 +43,8 @@ const Home = () => {
   }
 
   return (
+    <div>
+      <Dashboard />
     <div className={styles.container}>
       <h2>Subjects</h2>
       <ul className={styles["responsive-table"]}>
@@ -132,6 +136,7 @@ const Home = () => {
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 };

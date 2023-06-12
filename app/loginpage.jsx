@@ -16,7 +16,7 @@ const LoginPage = () => {
     // Perform validation
     if (username === 'admin' && password === 'password') {
 
-        push('/dashboard');
+        push('/Dashboard_body');
       // Perform any other necessary actions upon successful login
 
     } else {

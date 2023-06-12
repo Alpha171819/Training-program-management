@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import axios from "axios";
+import Dashboard from '../dashboard/page'; 
 import { ru } from "date-fns/locale";
 
 // Example usage
@@ -114,6 +115,7 @@ const TimeTable = () => {
 
   return (
     <div className={styles.body}>
+      <Dashboard />
       <div className={styles.grid_container}>
         <div className={`${styles.grid_item} ${styles.item1}`}>
           <b>
