@@ -217,12 +217,12 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item60}`}>
-          Data Definition Language (DDL), Data Manipulation Language (DML) &
-          Basic Operators
+        {topics[4]?.learning_obj}
+
         </div>
         <div className={`${styles.grid_item} ${styles.item61}`}>
-          Practical: Troubleshooting on No Backup, Not switching to main supply,
-          Charging circuit not working & UPS on but no output
+        {topics[5]?.learning_obj}
+
         </div>
         <div className={`${styles.grid_item} ${styles.item62}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item63}`}>12/34</div>
@@ -243,12 +243,10 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item72}`}>
-          Additional operator & Functional Dependency
+        {topics[6]?.learning_obj}
         </div>
         <div className={`${styles.grid_item} ${styles.item73}`}>
-          MFD: Test for repair, replacement & discard policy of MFD. Echelon of
-          Repair of the MFD & Practical on Test configuration and connectivity
-          of latest MFDs
+        {topics[7]?.learning_obj}
         </div>
         <div className={`${styles.grid_item} ${styles.item74}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item75}`}>16/34</div>
@@ -269,11 +267,7 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item84}`}>
-          Inference Rule, DBMS 1NF, 2NF, 3NF, 4NF, 5NF, SQL Server, Practical
-          Installation of SQL, server, Practical on Installation procedure of
-          SQL server in a system, Create Database in SQL, Drop Database in SQL,
-          Backup Database in SQL & Practical on Create and Drop Database using
-          the Designer tools and queries
+        {topics[8]?.learning_obj}
         </div>
         <div className={`${styles.grid_item} ${styles.item85}`}>
           Theory exam on Adv IT Trg (E)
