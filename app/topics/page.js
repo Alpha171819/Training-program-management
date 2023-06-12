@@ -5,6 +5,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './page.module.css';
 import axios from 'axios';
+import Dashboard from '../dashboard/page';
+
 
 
 const AddTopic = () => {
@@ -70,6 +72,8 @@ const AddTopic = () => {
       // setEveningClasses('');
     };
   return (
+    <div>
+      <Dashboard />
     <div className={styles.container}>
       <h1>Add Topic</h1>
       <button
@@ -205,6 +209,7 @@ const AddTopic = () => {
 
         <button className={styles.button} type="button" onClick={addTopicToDB}>Add Topic</button>
       </form>
+    </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import styles from './AddCourse.module.css';
 import axios from 'axios';
+import Dashboard from '../dashboard/page';
 
 const AddCoursePage = () => {
   const [courseName, setCourseName] = useState('');
@@ -31,7 +32,10 @@ const AddCoursePage = () => {
       });
   };
   return (
+    <div>
+      <Dashboard />
     <div className={styles.container}>
+      
       <h2 className={styles.title}>Add Course</h2>
       <form  className={styles.form}>
   
@@ -98,6 +102,7 @@ const AddCoursePage = () => {
 
 <input type="submit" onClick={AddCourse} value="Submit" className={styles.submitButton} />
 </form>
+</div>
 </div>
 );
 

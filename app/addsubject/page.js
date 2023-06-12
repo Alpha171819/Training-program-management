@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddSubject.module.css";
 import axios from "axios";
+import Dashboard from '../dashboard/page';
+
 // get the course name from api and display it in the dropdown
 // const getCourses = () => {
 //   axios.get("http://localhost:3131/courses").then((res) => {
@@ -59,6 +61,7 @@ const AddSubject = () => {
 
   return (
     <>
+      <Dashboard />
       <h2>Add Subject</h2>
       <form className={styles.subjectForm} onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
