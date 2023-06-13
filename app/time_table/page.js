@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import axios from "axios";
-import Dashboard from '../dashboard/page'; 
+import axios, { all } from "axios";
+import Dashboard from "../dashboard/page";
 import { ru } from "date-fns/locale";
 
 // Example usage
@@ -13,6 +13,8 @@ const TimeTable = () => {
   const [subjects, setSubjects] = useState([]);
   const [runningSubjectsID, setRunningSubjectsID] = useState([]);
 
+  let count = 0;
+
   //create a get request to get the instructors data
   const {
     startOfWeek,
@@ -20,6 +22,7 @@ const TimeTable = () => {
     endOfWeek,
     format,
     sub,
+    set,
   } = require("date-fns");
 
   const getWeekNumber = (startDate, currentDate) => {
@@ -64,12 +67,12 @@ const TimeTable = () => {
     });
   }, [url]);
 
-  useEffect(() => {
-    axios.get(`${url}/topics`).then((res) => {
-      setTopics(res.data);
-      console.log(" topics data ", res.data);
-    });
-  }, [url]);
+  // useEffect(() => {
+  //   axios.get(`${url}/topics`).then((res) => {
+  //     setTopics(res.data);
+  //     console.log(" topics data ", res.data);
+  //   });
+  // }, [url]);
 
   useEffect(() => {
     axios.get(`${url}/runningSubjects`).then((res) => {
@@ -78,6 +81,25 @@ const TimeTable = () => {
     });
   }, [url]);
 
+  // get the topics for each running subject
+  // topics contain each subjects topics as an array of objects
+  useEffect(() => {
+    const refTopics = [];
+    runningSubjectsID.forEach((subject) => {
+      refTopics.push(axios.get(`${url}/topicReference/${subject.sub_id}`));
+    });
+    const realTopics = [];
+    axios.all(refTopics).then(
+      axios.spread((...allData) => {
+        allData.forEach((data) => {
+          realTopics.push(data.data);
+        });
+        setTopics(realTopics);
+      })
+    );
+  }, [url, runningSubjectsID]);
+
+  console.log("topics", topics);
   useEffect(() => {
     // from the running subjects get the subject id and then get the subject name from the subjects table using the subject id
     // then get the topics from the topics table using the subject id
@@ -111,7 +133,54 @@ const TimeTable = () => {
 
   const endOfWeekDate = endOfWeek(currentDate);
 
-  if (subjects.length === 0) return <div className={styles.loading}>Loading...</div>;
+  useEffect(() => {
+    if (topics.length === 0) return;
+    console.log(topics);
+    console.log("first topic", topics[0][count]?.learning_obj);
+    console.log(
+      "LD, Theory, ITP",
+      topics[0][count]?.LD,
+      topics[0][count]?.theory_cnt,
+      topics[0][count]?.itp_cnt
+    );
+  }, [count, topics]);
+
+  console.log("topics", topics);
+  const getThisWeeksTopics = (subjectIndex) => {
+    let listOfTopics = [];
+    let LD = topics[subjectIndex][count]?.LD;
+    let theory = topics[subjectIndex][count]?.theory_cnt;
+    let itp = topics[subjectIndex][count]?.itp_cnt;
+    let practical_cnt = topics[subjectIndex][count]?.practical_cnt;
+    let total = LD + theory + itp + practical_cnt;
+
+    if (topics.length === 0) return;
+    // console.log(topics);
+    // console.log("first topic",topics[subjectIndex][count]?.learning_obj);
+    while(total > 0 && listOfTopics.length < 6) {
+      listOfTopics.push(topics[subjectIndex][count]?.learning_obj);
+      total-=4;
+      if (total <= 0) count++;
+      LD = topics[subjectIndex][count]?.LD;
+      theory = topics[subjectIndex][count]?.theory_cnt;
+      itp = topics[subjectIndex][count]?.itp_cnt;
+      practical_cnt = topics[subjectIndex][count]?.practical_cnt;
+      total = LD + theory + itp + practical_cnt;
+    }
+    return listOfTopics;
+  };
+
+  let firstTopics = [];
+  let secondTopics = [];
+
+  if (topics.length != 0) {
+    firstTopics = getThisWeeksTopics(0);
+    console.log("first topics", firstTopics);
+    secondTopics = getThisWeeksTopics(1);
+  }
+
+  if (subjects.length === 0)
+    return <div className={styles.loading}>Loading...</div>;
 
   return (
     <div className={styles.body}>
@@ -202,7 +271,7 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item36}`}>
-          {topics[0]?.learning_obj}
+        {firstTopics[0]}
         </div>
         <div className={`${styles.grid_item} ${styles.item37}`}>
           {topics[1]?.learning_obj}
@@ -226,7 +295,7 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item48}`}>
-          {topics[2]?.learning_obj}
+          {firstTopics[1]}
         </div>
         <div className={`${styles.grid_item} ${styles.item49}`}>
           {topics[3]?.learning_obj}
@@ -249,12 +318,10 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item60}`}>
-        {topics[4]?.learning_obj}
-
+          {firstTopics[2]}
         </div>
         <div className={`${styles.grid_item} ${styles.item61}`}>
-        {topics[5]?.learning_obj}
-
+          {topics[5]?.learning_obj}
         </div>
         <div className={`${styles.grid_item} ${styles.item62}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item63}`}>12/34</div>
@@ -275,10 +342,10 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item72}`}>
-        {topics[6]?.learning_obj}
+          {firstTopics[3]}
         </div>
         <div className={`${styles.grid_item} ${styles.item73}`}>
-        {topics[7]?.learning_obj}
+          {topics[7]?.learning_obj}
         </div>
         <div className={`${styles.grid_item} ${styles.item74}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item75}`}>16/34</div>
@@ -299,7 +366,7 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item84}`}>
-        {topics[8]?.learning_obj}
+          {firstTopics[4]}
         </div>
         <div className={`${styles.grid_item} ${styles.item85}`}>
           Theory exam on Adv IT Trg (E)
@@ -324,8 +391,7 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item96}`}>
-          Installation Procedure of SQL server in a system, Create Database in
-          SQL, Drop Database in SQL & Backup Database in SQL
+          {firstTopics[5]}
         </div>
         <div className={`${styles.grid_item} ${styles.item97}`}>
           Installation of driver of different type of latest MFDs, fault finding
@@ -359,6 +425,9 @@ const TimeTable = () => {
           Misc/Exam/Eve
         </div>
       </div>
+      <button className={styles.centerButton}>
+        Save TimeTable for {new Date().toLocaleDateString()}
+      </button>
     </div>
   );
 };
