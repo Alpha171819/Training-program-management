@@ -8,6 +8,17 @@
   font-size: 5px;
 }
 
+
+.centerButton {
+  text-align: center;
+  margin: 10px auto;
+  left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+  padding: 10px;
+  font-size: large;
+}
+
 .body {
     padding: 10px;
 }
