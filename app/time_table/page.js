@@ -8,6 +8,8 @@ import { ru } from "date-fns/locale";
 // Example usage
 
 const TimeTable = () => {
+  const [instructors, setInstructors] = useState([]);
+
   const [course, setcourse] = useState([]);
   const [topics, setTopics] = useState([]);
   const [subjects, setSubjects] = useState([]);
@@ -65,6 +67,13 @@ const TimeTable = () => {
       console.log(" course data ", res.data);
     });
   }, [url]);
+
+  useEffect(() => {
+    axios.get(`${url}/instructors`).then((res) => {
+        setInstructors(res.data);
+        console.log( "TTI data is ",res.data);
+    });
+}, [url]);
 
   useEffect(() => {
     axios.get(`${url}/runningSubjects`).then((res) => {
@@ -249,7 +258,17 @@ const TimeTable = () => {
         <div className={`${styles.grid_item} ${styles.item38}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item39}`}>4/34</div>
         <div className={`${styles.grid_item} ${styles.item40}`}>Self Study</div>
-        <div className={`${styles.grid_item} ${styles.item41}`}>STP</div>
+        <div className={`${styles.grid_item} ${styles.item41}`}>{
+          // map through the array of objects and return the instructor name in dropdown
+          instructors.map((instructor) => {
+            return (
+              <option key={instructor.id} value={instructor.id}>
+                {instructor.name}
+              </option>
+            );
+          }
+        )
+        }</div>
         <div className={`${styles.grid_item} ${styles.item42}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item43}`}>119/152</div>
         <div className={`${styles.grid_item} ${styles.item44}`}>

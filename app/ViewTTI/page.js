@@ -71,7 +71,7 @@ const ViewTTI = () => {
           >
             {item.inst_code}
           </div>
-          <Link className={styles.button} href={`/addsubject/${item.inst_id}`}>
+          <Link className={styles.button} href={`/AddTTI/${item.inst_id}`}>
             <p>EDIT</p>
           </Link>
 
