@@ -8,6 +8,11 @@
   font-size: 5px;
 }
 
+.smallText {
+  font-size: 10px;
+  border: none;
+}
+
 
 .centerButton {
   text-align: center;

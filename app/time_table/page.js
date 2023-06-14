@@ -12,7 +12,6 @@ const TimeTable = () => {
   const [topics, setTopics] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [runningSubjectsID, setRunningSubjectsID] = useState([]);
-
   let count = 0;
 
   //create a get request to get the instructors data
@@ -157,18 +156,82 @@ const TimeTable = () => {
     if (topics.length === 0) return;
     // console.log(topics);
     // console.log("first topic",topics[subjectIndex][count]?.learning_obj);
-    while(total > 0 && listOfTopics.length < 6) {
+    while (total > 0 && listOfTopics.length < 36) {
       listOfTopics.push(topics[subjectIndex][count]?.learning_obj);
-      total-=4;
+      total -= 1;
       if (total <= 0) count++;
       LD = topics[subjectIndex][count]?.LD;
       theory = topics[subjectIndex][count]?.theory_cnt;
       itp = topics[subjectIndex][count]?.itp_cnt;
       practical_cnt = topics[subjectIndex][count]?.practical_cnt;
-      total = LD + theory + itp + practical_cnt;
+      if (total <= 0) total = LD + theory + itp + practical_cnt;
     }
     return listOfTopics;
   };
+
+  const getArrayofArrays = () => {
+    if (topics.length === 0) return [];
+    let whatToPush = topics[0];
+    console.log(whatToPush, "what to  push");
+    let arrayOfArrays = [];
+    let array = [];
+    for (let i = 0; i < whatToPush.length; i++) {
+      array.push(topics[i]);
+      if (i % 4 == 0) {
+        arrayOfArrays.push(array);
+        array = [];
+      }
+    }
+    return arrayOfArrays;
+  };
+  if (topics.length != 0) {
+    const topicsDividedBy4 = getArrayofArrays();
+    console.log("array of arrays", topicsDividedBy4);
+  }
+
+  // topics = [ [{}, {}], [{}, {}, {}] ]
+  // firstSubjectTopics = topics[0]
+  // topic = 0
+  // if firstSubjectTopics[topic].total > 0 use this
+  // firstSubjectTopics[topic].total -= 1
+  // add to smallArray
+  //  if (firstSubjectTopics[topic].total == 0)
+  //  { topic++ }
+  // if smallArray.length == 4 {
+  //  bigArray.push(smallArray);
+  //  smallArray = []
+  // }
+
+  let bigArray = [];
+
+  if (topics.length != 0) {
+    let smallArray = [];
+    let firstSubjectTopics = topics[0];
+    console.log("first subject topics", firstSubjectTopics);
+    // topics = [ [{}, {}], [{}, {}, {}] , [{}, {}, {}]
+    firstSubjectTopics.forEach((topic) => {
+      let topicTotal = topic.total;
+      while (topicTotal >= 0) {
+        // add to smallArray
+        smallArray.push(topic.learning_obj);
+        topicTotal -= 1;
+        if (smallArray.length == 4) {
+          bigArray.push(smallArray);
+          smallArray = [];
+        }
+      }
+    });
+    bigArray.push(smallArray);
+    // sanitize each smallArray
+    let smallArrayWithoutDuplicates = [];
+    bigArray.forEach((smallArray) => {
+      smallArrayWithoutDuplicates.push([...new Set(smallArray)]);
+    });
+    bigArray = smallArrayWithoutDuplicates;
+    // remove empty strings from smallArray
+
+    console.log("bigArray topics", bigArray);
+  }
 
   let firstTopics = [];
   let secondTopics = [];
@@ -271,7 +334,15 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item36}`}>
-        {firstTopics[0]}
+          <div>
+            {bigArray[0].map((topic, idx) => {
+              return (
+                <p key={idx} className={styles.smallText}>
+                  {topic}
+                </p>
+              );
+            })}
+          </div>
         </div>
         <div className={`${styles.grid_item} ${styles.item37}`}>
           {topics[1]?.learning_obj}
@@ -295,7 +366,13 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item48}`}>
-          {firstTopics[1]}
+          {bigArray[1].map((topic, idx) => {
+            return (
+              <p key={idx} className={styles.smallText}>
+                {topic}
+              </p>
+            );
+          })}
         </div>
         <div className={`${styles.grid_item} ${styles.item49}`}>
           {topics[3]?.learning_obj}
@@ -318,7 +395,9 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item60}`}>
-          {firstTopics[2]}
+        {bigArray[2].map((topic, idx) => {
+              return <p key={idx} className={styles.smallText}>{topic}</p>;
+            })}
         </div>
         <div className={`${styles.grid_item} ${styles.item61}`}>
           {topics[5]?.learning_obj}
@@ -342,7 +421,9 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item72}`}>
-          {firstTopics[3]}
+        {bigArray[3].map((topic, idx) => {
+              return <p key={idx} className={styles.smallText}>{topic}</p>;
+            })}
         </div>
         <div className={`${styles.grid_item} ${styles.item73}`}>
           {topics[7]?.learning_obj}
@@ -366,7 +447,9 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item84}`}>
-          {firstTopics[4]}
+        {bigArray[4].map((topic, idx) => {
+              return <p key={idx} className={styles.smallText}>{topic}</p>;
+            })}
         </div>
         <div className={`${styles.grid_item} ${styles.item85}`}>
           Theory exam on Adv IT Trg (E)
@@ -391,7 +474,9 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item96}`}>
-          {firstTopics[5]}
+        {bigArray[5].map((topic, idx) => {
+              return <p key={idx} className={styles.smallText}>{topic}</p>;
+            })}
         </div>
         <div className={`${styles.grid_item} ${styles.item97}`}>
           Installation of driver of different type of latest MFDs, fault finding
