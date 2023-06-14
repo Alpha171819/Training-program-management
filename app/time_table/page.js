@@ -73,8 +73,6 @@ const TimeTable = () => {
     });
   }, [url]);
 
-  // get the topics for each running subject
-  // topics contain each subjects topics as an array of objects
   useEffect(() => {
     const refTopics = [];
     runningSubjectsID.forEach((subject) => {
@@ -93,9 +91,6 @@ const TimeTable = () => {
 
   console.log("topics", topics);
   useEffect(() => {
-    // from the running subjects get the subject id and then get the subject name from the subjects table using the subject id
-    // then get the topics from the topics table using the subject id
-    // then get the learning objectives from the topics table using the subject id
     if (runningSubjectsID.length === 0) return;
     const getSubjectDetails = () => {
       const sub1 = axios.get(`${url}/subjects/${runningSubjectsID[0]?.sub_id}`);

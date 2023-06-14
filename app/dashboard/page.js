@@ -9,13 +9,13 @@ const Dashboard = () => {
     <>
       <nav className={styles.nav}>
         <ol className={styles.navList}>
-          <li><a href="#">Home</a></li>
+          <li><a href="/Dashboard_body">Home</a></li>
           <li><a href="#">Notification</a></li>
           <li className={styles.training}>
-            <a href="#">Training</a>
+            <a href="#">Instructors</a>
             <ol className={styles.subList}>
               <li><a href="/AddTTI">Add TTI</a></li>
-              <li><a href="#">Trg Program</a></li>
+              <li><a href="ViewTTI">View TTI</a></li>
             </ol>
           </li>
           <li className={styles.training}>

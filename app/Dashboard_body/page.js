@@ -13,11 +13,23 @@ const Dashboard_body = () => {
     <div className={styles.container}>
     <div className={styles.leftBox}>
 
-  
         <h2>Notifications</h2>
-            <p>Notification 1</p>
-            <p>Notification 2</p>
-            <p>Notification 3</p>
+        <marquee className={styles.notificationsBox} direction="up" scrollamount="2" height="200px">
+          <ul>
+            <li>Notification 1</li>
+            <li>Notification 2</li>
+            <li>Notification 3</li>
+            <li>Notification 4</li>
+            <li>Notification 5</li>
+            <li>Notification 6</li>
+            <li>Notification 7</li>
+            <li>Notification 8</li>
+            <li>Notification 9</li>
+            <li>Notification 10</li>
+          </ul>
+        </marquee>
+
+
 
 
     </div>
