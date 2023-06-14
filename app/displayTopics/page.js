@@ -5,7 +5,6 @@ import axios from "axios";
 import styles from "./page.module.css";
 import Dashboard from '../dashboard/page';
 
-
 const DisplayTopics = () => {
   const [topics, setTopics] = useState([]);
 
@@ -46,6 +45,7 @@ const DisplayTopics = () => {
 
   return (
     <div>
+      {/* metadata */}
       <Dashboard />
     <div className={styles.container}>
       <h1>Topics</h1>
@@ -97,3 +97,4 @@ const DisplayTopics = () => {
 };
 
 export default DisplayTopics;
+

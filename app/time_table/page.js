@@ -66,13 +66,6 @@ const TimeTable = () => {
     });
   }, [url]);
 
-  // useEffect(() => {
-  //   axios.get(`${url}/topics`).then((res) => {
-  //     setTopics(res.data);
-  //     console.log(" topics data ", res.data);
-  //   });
-  // }, [url]);
-
   useEffect(() => {
     axios.get(`${url}/runningSubjects`).then((res) => {
       setRunningSubjectsID(res.data);
@@ -144,129 +137,8 @@ const TimeTable = () => {
     );
   }, [count, topics]);
 
-  console.log("topics", topics);
-  const getThisWeeksTopics = (subjectIndex) => {
-    let listOfTopics = [];
-    let LD = topics[subjectIndex][count]?.LD;
-    let theory = topics[subjectIndex][count]?.theory_cnt;
-    let itp = topics[subjectIndex][count]?.itp_cnt;
-    let practical_cnt = topics[subjectIndex][count]?.practical_cnt;
-    let total = LD + theory + itp + practical_cnt;
+   
 
-    if (topics.length === 0) return;
-    // console.log(topics);
-    // console.log("first topic",topics[subjectIndex][count]?.learning_obj);
-    while (total > 0 && listOfTopics.length < 36) {
-      listOfTopics.push(topics[subjectIndex][count]?.learning_obj);
-      total -= 1;
-      if (total <= 0) count++;
-      LD = topics[subjectIndex][count]?.LD;
-      theory = topics[subjectIndex][count]?.theory_cnt;
-      itp = topics[subjectIndex][count]?.itp_cnt;
-      practical_cnt = topics[subjectIndex][count]?.practical_cnt;
-      if (total <= 0) total = LD + theory + itp + practical_cnt;
-    }
-    return listOfTopics;
-  };
-
-  const getArrayofArrays = () => {
-    if (topics.length === 0) return [];
-    let whatToPush = topics[0];
-    console.log(whatToPush, "what to  push");
-    let arrayOfArrays = [];
-    let array = [];
-    for (let i = 0; i < whatToPush.length; i++) {
-      array.push(topics[i]);
-      if (i % 4 == 0) {
-        arrayOfArrays.push(array);
-        array = [];
-      }
-    }
-    return arrayOfArrays;
-  };
-  if (topics.length != 0) {
-    const topicsDividedBy4 = getArrayofArrays();
-    console.log("array of arrays", topicsDividedBy4);
-  }
-
-  // topics = [ [{}, {}], [{}, {}, {}] ]
-  // firstSubjectTopics = topics[0]
-  // topic = 0
-  // if firstSubjectTopics[topic].total > 0 use this
-  // firstSubjectTopics[topic].total -= 1
-  // add to smallArray
-  //  if (firstSubjectTopics[topic].total == 0)
-  //  { topic++ }
-  // if smallArray.length == 4 {
-  //  bigArray.push(smallArray);
-  //  smallArray = []
-  // }
-
-  let bigArray = [];
-  let bigArray2 = [];
-  if (topics.length != 0) {
-    let smallArray = [];
-    let smallArray2 = []
-    let firstSubjectTopics = topics[0];
-    let secondSubjectTopics = topics[1];
-
-    console.log("first subject topics", firstSubjectTopics);
-    // topics = [ [{}, {}], [{}, {}, {}] , [{}, {}, {}]
-    firstSubjectTopics.forEach((topic) => {
-      let topicTotal = topic.total;
-      while (topicTotal >= 0) {
-        // add to smallArray
-        smallArray.push(topic.learning_obj);
-        topicTotal -= 1;
-        if (smallArray.length == 4) {
-          bigArray.push(smallArray);
-          smallArray = [];
-        }
-      }
-    });
-    secondSubjectTopics.forEach((topic) => {
-      let topicTotal = topic.total;
-      while (topicTotal >= 0) {
-        // add to smallArray
-        smallArray2.push(topic.learning_obj);
-        topicTotal -= 1;
-        if (smallArray2.length == 4) {
-          bigArray2.push(smallArray2);
-          smallArray2 = [];
-        }
-      }
-    });
-
-
-
-    bigArray.push(smallArray);
-    bigArray2.push(smallArray2);
-    // sanitize each smallArray
-    let smallArrayWithoutDuplicates = [];
-    let smallArrayWithoutDuplicates2 = [];
-
-    bigArray.forEach((smallArray) => {
-      smallArrayWithoutDuplicates.push([...new Set(smallArray)]);
-    });
-    bigArray2.forEach((smallArray) => {
-      smallArrayWithoutDuplicates2.push([...new Set(smallArray)]);
-    });
-    bigArray = smallArrayWithoutDuplicates;
-    bigArray2 = smallArrayWithoutDuplicates2;
-    // remove empty strings from smallArray
-
-    console.log("bigArray topics", bigArray);
-    console.log("bigArray2 topics", bigArray2);
-  }
-
-  let firstTopics = [];
-  let secondTopics = [];
-
-  if (topics.length != 0) {
-    firstTopics = getThisWeeksTopics(0);
-    console.log("first topics", firstTopics);
-    secondTopics = getThisWeeksTopics(1);
-  }
 
   if (subjects.length === 0)
     return <div className={styles.loading}>Loading...</div>;
