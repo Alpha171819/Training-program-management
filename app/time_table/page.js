@@ -203,10 +203,13 @@ const TimeTable = () => {
   // }
 
   let bigArray = [];
-
+  let bigArray2 = [];
   if (topics.length != 0) {
     let smallArray = [];
+    let smallArray2 = []
     let firstSubjectTopics = topics[0];
+    let secondSubjectTopics = topics[1];
+
     console.log("first subject topics", firstSubjectTopics);
     // topics = [ [{}, {}], [{}, {}, {}] , [{}, {}, {}]
     firstSubjectTopics.forEach((topic) => {
@@ -221,16 +224,39 @@ const TimeTable = () => {
         }
       }
     });
+    secondSubjectTopics.forEach((topic) => {
+      let topicTotal = topic.total;
+      while (topicTotal >= 0) {
+        // add to smallArray
+        smallArray2.push(topic.learning_obj);
+        topicTotal -= 1;
+        if (smallArray2.length == 4) {
+          bigArray2.push(smallArray2);
+          smallArray2 = [];
+        }
+      }
+    });
+
+
+
     bigArray.push(smallArray);
+    bigArray2.push(smallArray2);
     // sanitize each smallArray
     let smallArrayWithoutDuplicates = [];
+    let smallArrayWithoutDuplicates2 = [];
+
     bigArray.forEach((smallArray) => {
       smallArrayWithoutDuplicates.push([...new Set(smallArray)]);
     });
+    bigArray2.forEach((smallArray) => {
+      smallArrayWithoutDuplicates2.push([...new Set(smallArray)]);
+    });
     bigArray = smallArrayWithoutDuplicates;
+    bigArray2 = smallArrayWithoutDuplicates2;
     // remove empty strings from smallArray
 
     console.log("bigArray topics", bigArray);
+    console.log("bigArray2 topics", bigArray2);
   }
 
   let firstTopics = [];
@@ -345,7 +371,13 @@ const TimeTable = () => {
           </div>
         </div>
         <div className={`${styles.grid_item} ${styles.item37}`}>
-          {topics[1]?.learning_obj}
+        {bigArray2[0].map((topic, idx) => {
+              return (
+                <p key={idx} className={styles.smallText}>
+                  {topic}
+                </p>
+              );
+            })}
         </div>
         <div className={`${styles.grid_item} ${styles.item38}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item39}`}>4/34</div>
@@ -375,7 +407,13 @@ const TimeTable = () => {
           })}
         </div>
         <div className={`${styles.grid_item} ${styles.item49}`}>
-          {topics[3]?.learning_obj}
+        {bigArray2[1].map((topic, idx) => {
+              return (
+                <p key={idx} className={styles.smallText}>
+                  {topic}
+                </p>
+              );
+            })}
         </div>
         <div className={`${styles.grid_item} ${styles.item50}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item51}`}>8/34</div>
@@ -400,7 +438,9 @@ const TimeTable = () => {
             })}
         </div>
         <div className={`${styles.grid_item} ${styles.item61}`}>
-          {topics[5]?.learning_obj}
+        {bigArray2[2].map((topic, idx) => {
+              return <p key={idx} className={styles.smallText}>{topic}</p>;
+            })}
         </div>
         <div className={`${styles.grid_item} ${styles.item62}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item63}`}>12/34</div>
@@ -426,7 +466,9 @@ const TimeTable = () => {
             })}
         </div>
         <div className={`${styles.grid_item} ${styles.item73}`}>
-          {topics[7]?.learning_obj}
+        {bigArray2[3].map((topic, idx) => {
+              return <p key={idx} className={styles.smallText}>{topic}</p>;
+            })}
         </div>
         <div className={`${styles.grid_item} ${styles.item74}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item75}`}>16/34</div>
@@ -452,7 +494,9 @@ const TimeTable = () => {
             })}
         </div>
         <div className={`${styles.grid_item} ${styles.item85}`}>
-          Theory exam on Adv IT Trg (E)
+        {bigArray2[4].map((topic, idx) => {
+              return <p key={idx} className={styles.smallText}>{topic}</p>;
+            })}
         </div>
         <div className={`${styles.grid_item} ${styles.item86}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item87}`}>
@@ -479,9 +523,9 @@ const TimeTable = () => {
             })}
         </div>
         <div className={`${styles.grid_item} ${styles.item97}`}>
-          Installation of driver of different type of latest MFDs, fault finding
-          and troubleshooting procedure & common faults. Reasons and preventive
-          maintenance
+        {bigArray2[4].map((topic, idx) => {
+              return <p key={idx} className={styles.smallText}>{topic}</p>;
+            })}
         </div>
         <div className={`${styles.grid_item} ${styles.item98}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item99}`}>
