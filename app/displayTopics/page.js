@@ -81,7 +81,7 @@ const DisplayTopics = () => {
         <tbody>
           {topics.map((topic) => (
             <tr key={topic.id}>
-              <td>{subjects[topic.sub_id-1].sub_name}</td>            
+              <td>{subjects[topic.sub_id]?.sub_name}</td>            
               <td>{topic.terminal_obj}</td>
               <td>{topic.enabling_obj}</td>
               <td>{topic.learning_obj}</td>

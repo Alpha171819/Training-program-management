@@ -44,7 +44,7 @@ const TableComponent = () => {
               className={`${styles.col} ${styles["col-1"]}`}
               data-label="Job Id"
             >
-              {idx + 1}
+              {item.sub_id}
             </div>
             <div
               className={`${styles.col} ${styles["col-2"]}`}
