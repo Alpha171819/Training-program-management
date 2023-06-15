@@ -25,8 +25,7 @@ const TimeTable = () => {
     differenceInWeeks,
     endOfWeek,
     format,
-    sub,
-    set,
+
   } = require("date-fns");
 
   const getWeekNumber = (startDate, currentDate) => {
@@ -278,21 +277,34 @@ const TimeTable = () => {
         <div className={`${styles.grid_item} ${styles.item39}`}>4/34</div>
         <div className={`${styles.grid_item} ${styles.item40}`}>Self Study</div>
         <div className={`${styles.grid_item} ${styles.item41}`}>
-          {
-            // map through the array of objects and return the instructor name in dropdown
-            instructors.map((instructor) => {
-              return (
-                <option key={instructor.id} value={instructor.id}>
-                  {instructor.name}
-                </option>
-              );
-            })
-          }
+
+         
+             <select>
+              { instructors.map((instructor) => {
+                return(
+              <option key={instructor.id} value={instructor.id}>
+                {instructor.name}
+              </option>
+              )
+              } )}
+              </select>
+            
+         
+       
+
         </div>
         <div className={`${styles.grid_item} ${styles.item42}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item43}`}>119/152</div>
         <div className={`${styles.grid_item} ${styles.item44}`}>
-          HNS/NPY/HNS/SSG/AKT
+        <select>
+              { instructors.map((instructor) => {
+                return(
+              <option key={instructor.id} value={instructor.id}>
+                {instructor.name}
+              </option>
+              )
+              } )}
+              </select>
         </div>
         <div className={`${styles.grid_item} ${styles.item45}`}>
           {formattedWeekDates[1]}
@@ -323,11 +335,27 @@ const TimeTable = () => {
         </div>
         <div className={`${styles.grid_item} ${styles.item50}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item51}`}>8/34</div>
-        <div className={`${styles.grid_item} ${styles.item53}`}>STP</div>
+        <div className={`${styles.grid_item} ${styles.item53}`}>  <select>
+              { instructors.map((instructor) => {
+                return(
+              <option key={instructor.id} value={instructor.id}>
+                {instructor.name}
+              </option>
+              )
+              } )}
+              </select></div>
         <div className={`${styles.grid_item} ${styles.item54}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item55}`}>122/152</div>
         <div className={`${styles.grid_item} ${styles.item56}`}>
-          HS/NPY/HNS/SSG/AKT
+        <select>
+              { instructors.map((instructor) => {
+                return(
+              <option key={instructor.id} value={instructor.id}>
+                {instructor.name}
+              </option>
+              )
+              } )}
+              </select>
         </div>
         <div className={`${styles.grid_item} ${styles.item57}`}>
           {formattedWeekDates[2]}
@@ -359,11 +387,27 @@ const TimeTable = () => {
         <div className={`${styles.grid_item} ${styles.item62}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item63}`}>12/34</div>
         <div className={`${styles.grid_item} ${styles.item64}`}>Half Day</div>
-        <div className={`${styles.grid_item} ${styles.item665}`}>STP</div>
+        <div className={`${styles.grid_item} ${styles.item665}`}>  <select>
+              { instructors.map((instructor) => {
+                return(
+              <option key={instructor.id} value={instructor.id}>
+                {instructor.name}
+              </option>
+              )
+              } )}
+              </select></div>
         <div className={`${styles.grid_item} ${styles.item66}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item67}`}>125/152</div>
         <div className={`${styles.grid_item} ${styles.item68}`}>
-          HS/NPY/HNS/SSG/AKT
+        <select>
+              { instructors.map((instructor) => {
+                return(
+              <option key={instructor.id} value={instructor.id}>
+                {instructor.name}
+              </option>
+              )
+              } )}
+              </select>
         </div>
         <div className={`${styles.grid_item} ${styles.item69}`}>
           {formattedWeekDates[3]}
@@ -395,11 +439,27 @@ const TimeTable = () => {
         <div className={`${styles.grid_item} ${styles.item74}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item75}`}>16/34</div>
         <div className={`${styles.grid_item} ${styles.item76}`}>Self Study</div>
-        <div className={`${styles.grid_item} ${styles.item77}`}>STP</div>
+        <div className={`${styles.grid_item} ${styles.item77}`}>  <select>
+              { instructors.map((instructor) => {
+                return(
+              <option key={instructor.id} value={instructor.id}>
+                {instructor.name}
+              </option>
+              )
+              } )}
+              </select></div>
         <div className={`${styles.grid_item} ${styles.item78}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item79}`}>128/152</div>
         <div className={`${styles.grid_item} ${styles.item80}`}>
-          HNS/NPY/HNS/SSG/AKT
+        <select>
+              { instructors.map((instructor) => {
+                return(
+              <option key={instructor.id} value={instructor.id}>
+                {instructor.name}
+              </option>
+              )
+              } )}
+              </select>
         </div>
         <div className={`${styles.grid_item} ${styles.item81}`}>
           {formattedWeekDates[4]}
@@ -433,11 +493,27 @@ const TimeTable = () => {
           19/34, 1/59
         </div>
         <div className={`${styles.grid_item} ${styles.item89}`}>
-          STP/BBR/SKS/NVN/SDS
+        <select>
+              { instructors.map((instructor) => {
+                return(
+              <option key={instructor.id} value={instructor.id}>
+                {instructor.name}
+              </option>
+              )
+              } )}
+              </select>
         </div>
         <div className={`${styles.grid_item} ${styles.item90}`}>Exam Hall</div>
         <div className={`${styles.grid_item} ${styles.item91}`}>3/3</div>
-        <div className={`${styles.grid_item} ${styles.item92}`}>NRB</div>
+        <div className={`${styles.grid_item} ${styles.item92}`}>  <select>
+              { instructors.map((instructor) => {
+                return(
+              <option key={instructor.id} value={instructor.id}>
+                {instructor.name}
+              </option>
+              )
+              } )}
+              </select></div>
         <div className={`${styles.grid_item} ${styles.item93}`}>
           {formattedWeekDates[5]}
         </div>
@@ -471,12 +547,28 @@ const TimeTable = () => {
         </div>
         <div className={`${styles.grid_item} ${styles.item100}`}>Half Day</div>
         <div className={`${styles.grid_item} ${styles.item101}`}>
-          STP/BBR/SKS/NVN/SDS
+        <select>
+              { instructors.map((instructor) => {
+                return(
+              <option key={instructor.id} value={instructor.id}>
+                {instructor.name}
+              </option>
+              )
+              } )}
+              </select>
         </div>
         <div className={`${styles.grid_item} ${styles.item102}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item103}`}>131/152</div>
         <div className={`${styles.grid_item} ${styles.item104}`}>
-          HS/NPY/HNS/SSG/AKT
+        <select>
+              { instructors.map((instructor) => {
+                return(
+              <option key={instructor.id} value={instructor.id}>
+                {instructor.name}
+              </option>
+              )
+              } )}
+              </select>
         </div>
         <div className={`${styles.grid_item} ${styles.item105}`}></div>
         <div className={`${styles.grid_item} ${styles.item106}`}>
