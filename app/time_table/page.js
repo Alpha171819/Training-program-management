@@ -15,6 +15,8 @@ const TimeTable = () => {
   const [subjects, setSubjects] = useState([]);
   const [runningSubjectsID, setRunningSubjectsID] = useState([]);
   const [firstSubjectTopics, setFirstSubjectTopics] = useState([]);
+  const [secondSubjectTopics, setSecondSubjectTopics] = useState([]);
+
   let count = 0;
 
   //create a get request to get the instructors data
@@ -71,10 +73,10 @@ const TimeTable = () => {
 
   useEffect(() => {
     axios.get(`${url}/instructors`).then((res) => {
-        setInstructors(res.data);
-        console.log( "TTI data is ",res.data);
+      setInstructors(res.data);
+      console.log("TTI data is ", res.data);
     });
-}, [url]);
+  }, [url]);
 
   useEffect(() => {
     axios.get(`${url}/runningSubjects`).then((res) => {
@@ -91,6 +93,12 @@ const TimeTable = () => {
       .then((res) => {
         setFirstSubjectTopics(res.data);
         console.log("first subject topicsso", res.data);
+      });
+    axios
+      .get(`${url}/getSixDayTopics/${runningSubjectsID[1]?.sub_id}`)
+      .then((res) => {
+        setSecondSubjectTopics(res.data);
+        console.log("second subject topicsso", res.data);
       });
   }, [url, runningSubjectsID]);
 
@@ -153,7 +161,11 @@ const TimeTable = () => {
     );
   }, [count, topics]);
 
-  if (subjects.length === 0 || firstSubjectTopics.length === 0)
+  if (
+    subjects.length === 0 ||
+    firstSubjectTopics.length === 0 ||
+    secondSubjectTopics.length === 0
+  )
     return <div className={styles.loading}>Loading...</div>;
   return (
     <div className={styles.body}>
@@ -254,8 +266,7 @@ const TimeTable = () => {
           })}
         </div>
         <div className={`${styles.grid_item} ${styles.item37}`}>
-          {firstSubjectTopics[0].map((topic, idx) => {
-            console.log(topic);
+        {firstSubjectTopics[0]?.map((topic, idx) => {
             return (
               <p key={topic.id} className={styles.smallText}>
                 {topic.topic}
@@ -266,17 +277,18 @@ const TimeTable = () => {
         <div className={`${styles.grid_item} ${styles.item38}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item39}`}>4/34</div>
         <div className={`${styles.grid_item} ${styles.item40}`}>Self Study</div>
-        <div className={`${styles.grid_item} ${styles.item41}`}>{
-          // map through the array of objects and return the instructor name in dropdown
-          instructors.map((instructor) => {
-            return (
-              <option key={instructor.id} value={instructor.id}>
-                {instructor.name}
-              </option>
-            );
+        <div className={`${styles.grid_item} ${styles.item41}`}>
+          {
+            // map through the array of objects and return the instructor name in dropdown
+            instructors.map((instructor) => {
+              return (
+                <option key={instructor.id} value={instructor.id}>
+                  {instructor.name}
+                </option>
+              );
+            })
           }
-        )
-        }</div>
+        </div>
         <div className={`${styles.grid_item} ${styles.item42}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item43}`}>119/152</div>
         <div className={`${styles.grid_item} ${styles.item44}`}>
@@ -292,7 +304,7 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item48}`}>
-        {firstSubjectTopics[1].map((topic, idx) => {
+          {firstSubjectTopics[1].map((topic, idx) => {
             return (
               <p key={topic.id} className={styles.smallText}>
                 {topic.topic}
@@ -301,7 +313,7 @@ const TimeTable = () => {
           })}
         </div>
         <div className={`${styles.grid_item} ${styles.item49}`}>
-        {firstSubjectTopics[1].map((topic, idx) => {
+        {firstSubjectTopics[1]?.map((topic, idx) => {
             return (
               <p key={topic.id} className={styles.smallText}>
                 {topic.topic}
@@ -327,7 +339,7 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item60}`}>
-        {firstSubjectTopics[2].map((topic, idx) => {
+          {firstSubjectTopics[2].map((topic, idx) => {
             return (
               <p key={topic.id} className={styles.smallText}>
                 {topic.topic}
@@ -336,7 +348,7 @@ const TimeTable = () => {
           })}
         </div>
         <div className={`${styles.grid_item} ${styles.item61}`}>
-        {firstSubjectTopics[2].map((topic, idx) => {
+        {firstSubjectTopics[2]?.map((topic, idx) => {
             return (
               <p key={topic.id} className={styles.smallText}>
                 {topic.topic}
@@ -363,7 +375,7 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item72}`}>
-        {firstSubjectTopics[3].map((topic, idx) => {
+          {firstSubjectTopics[3].map((topic, idx) => {
             return (
               <p key={topic.id} className={styles.smallText}>
                 {topic.topic}
@@ -372,13 +384,13 @@ const TimeTable = () => {
           })}
         </div>
         <div className={`${styles.grid_item} ${styles.item73}`}>
-          {/* {bigArray2[3].map((topic, idx) => {
+        {firstSubjectTopics[3]?.map((topic, idx) => {
             return (
-              <p key={idx} className={styles.smallText}>
-                {topic}
+              <p key={topic.id} className={styles.smallText}>
+                {topic.topic}
               </p>
             );
-          })} */}
+          })}
         </div>
         <div className={`${styles.grid_item} ${styles.item74}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item75}`}>16/34</div>
@@ -399,7 +411,7 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item84}`}>
-        {firstSubjectTopics[4].map((topic, idx) => {
+          {firstSubjectTopics[4].map((topic, idx) => {
             return (
               <p key={topic.id} className={styles.smallText}>
                 {topic.topic}
@@ -408,13 +420,13 @@ const TimeTable = () => {
           })}
         </div>
         <div className={`${styles.grid_item} ${styles.item85}`}>
-          {/* {bigArray2[4].map((topic, idx) => {
+        {firstSubjectTopics[4]?.map((topic, idx) => {
             return (
-              <p key={idx} className={styles.smallText}>
-                {topic}
+              <p key={topic.id} className={styles.smallText}>
+                {topic.topic}
               </p>
             );
-          })} */}
+          })}
         </div>
         <div className={`${styles.grid_item} ${styles.item86}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item87}`}>
@@ -436,7 +448,7 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item96}`}>
-        {firstSubjectTopics[5].map((topic, idx) => {
+          {firstSubjectTopics[5]?.map((topic, idx) => {
             return (
               <p key={topic.id} className={styles.smallText}>
                 {topic.topic}
@@ -445,13 +457,13 @@ const TimeTable = () => {
           })}
         </div>
         <div className={`${styles.grid_item} ${styles.item97}`}>
-          {/* {bigArray2[4].map((topic, idx) => {
+        {secondSubjectTopics[5]?.map((topic, idx) => {
             return (
-              <p key={idx} className={styles.smallText}>
-                {topic}
+              <p key={topic.id} className={styles.smallText}>
+                {topic.topic}
               </p>
             );
-          })} */}
+          })}
         </div>
         <div className={`${styles.grid_item} ${styles.item98}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item99}`}>
