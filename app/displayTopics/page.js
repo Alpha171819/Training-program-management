@@ -7,6 +7,7 @@ import Dashboard from '../dashboard/page';
 
 const DisplayTopics = () => {
   const [topics, setTopics] = useState([]);
+  const [subjects, setSubject] = useState({});
 
   const url = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -41,12 +42,23 @@ const DisplayTopics = () => {
 
     setTopics(topics.filter((topic) => topic.id !== id));
 
+ 
+
   };
+
+  useEffect(() => {
+    axios.get(`${url}/subjects`).then((res) => {
+      setSubject(res.data);
+     
+    });
+  }, [url]);
+
+  console.log("timed subjects",subjects);
+
 
   return (
     <div>
-      {/* metadata */}
-      <Dashboard />
+    <Dashboard />
     <div className={styles.container}>
       <h1>Topics</h1>
      
@@ -69,7 +81,7 @@ const DisplayTopics = () => {
         <tbody>
           {topics.map((topic) => (
             <tr key={topic.id}>
-              <td>{topic.sub_id}</td>
+              <td>{subjects[topic.sub_id-1].sub_name}</td>            
               <td>{topic.terminal_obj}</td>
               <td>{topic.enabling_obj}</td>
               <td>{topic.learning_obj}</td>
