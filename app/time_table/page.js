@@ -12,6 +12,7 @@ const TimeTable = () => {
   const [topics, setTopics] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [runningSubjectsID, setRunningSubjectsID] = useState([]);
+  const [firstSubjectTopics, setFirstSubjectTopics] = useState([]);
   let count = 0;
 
   //create a get request to get the instructors data
@@ -74,6 +75,17 @@ const TimeTable = () => {
   }, [url]);
 
   useEffect(() => {
+    // fetch the topics for the first subject
+    if (runningSubjectsID.length === 0) return;
+    axios
+      .get(`${url}/getSixDayTopics/${runningSubjectsID[0]?.sub_id}`)
+      .then((res) => {
+        setFirstSubjectTopics(res.data);
+        console.log("first subject topicsso", res.data);
+      });
+  }, [url, runningSubjectsID]);
+
+  useEffect(() => {
     const refTopics = [];
     runningSubjectsID.forEach((subject) => {
       refTopics.push(axios.get(`${url}/topicReference/${subject.sub_id}`));
@@ -132,12 +144,8 @@ const TimeTable = () => {
     );
   }, [count, topics]);
 
-   
-
-
-  if (subjects.length === 0)
+  if (subjects.length === 0 || firstSubjectTopics.length === 0)
     return <div className={styles.loading}>Loading...</div>;
-
   return (
     <div className={styles.body}>
       <Dashboard />
@@ -227,24 +235,24 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item36}`}>
-          <div>
-            {bigArray[0].map((topic, idx) => {
-              return (
-                <p key={idx} className={styles.smallText}>
-                  {topic}
-                </p>
-              );
-            })}
-          </div>
+          {firstSubjectTopics[0].map((topic, idx) => {
+            console.log(topic);
+            return (
+              <p key={topic.id} className={styles.smallText}>
+                {topic.topic}
+              </p>
+            );
+          })}
         </div>
         <div className={`${styles.grid_item} ${styles.item37}`}>
-        {bigArray2[0].map((topic, idx) => {
-              return (
-                <p key={idx} className={styles.smallText}>
-                  {topic}
-                </p>
-              );
-            })}
+          {firstSubjectTopics[0].map((topic, idx) => {
+            console.log(topic);
+            return (
+              <p key={topic.id} className={styles.smallText}>
+                {topic.topic}
+              </p>
+            );
+          })}
         </div>
         <div className={`${styles.grid_item} ${styles.item38}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item39}`}>4/34</div>
@@ -265,22 +273,22 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item48}`}>
-          {bigArray[1].map((topic, idx) => {
+        {firstSubjectTopics[1].map((topic, idx) => {
             return (
-              <p key={idx} className={styles.smallText}>
-                {topic}
+              <p key={topic.id} className={styles.smallText}>
+                {topic.topic}
               </p>
             );
           })}
         </div>
         <div className={`${styles.grid_item} ${styles.item49}`}>
-        {bigArray2[1].map((topic, idx) => {
-              return (
-                <p key={idx} className={styles.smallText}>
-                  {topic}
-                </p>
-              );
-            })}
+        {firstSubjectTopics[1].map((topic, idx) => {
+            return (
+              <p key={topic.id} className={styles.smallText}>
+                {topic.topic}
+              </p>
+            );
+          })}
         </div>
         <div className={`${styles.grid_item} ${styles.item50}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item51}`}>8/34</div>
@@ -300,14 +308,22 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item60}`}>
-        {bigArray[2].map((topic, idx) => {
-              return <p key={idx} className={styles.smallText}>{topic}</p>;
-            })}
+        {firstSubjectTopics[2].map((topic, idx) => {
+            return (
+              <p key={topic.id} className={styles.smallText}>
+                {topic.topic}
+              </p>
+            );
+          })}
         </div>
         <div className={`${styles.grid_item} ${styles.item61}`}>
-        {bigArray2[2].map((topic, idx) => {
-              return <p key={idx} className={styles.smallText}>{topic}</p>;
-            })}
+        {firstSubjectTopics[2].map((topic, idx) => {
+            return (
+              <p key={topic.id} className={styles.smallText}>
+                {topic.topic}
+              </p>
+            );
+          })}
         </div>
         <div className={`${styles.grid_item} ${styles.item62}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item63}`}>12/34</div>
@@ -328,14 +344,22 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item72}`}>
-        {bigArray[3].map((topic, idx) => {
-              return <p key={idx} className={styles.smallText}>{topic}</p>;
-            })}
+        {firstSubjectTopics[3].map((topic, idx) => {
+            return (
+              <p key={topic.id} className={styles.smallText}>
+                {topic.topic}
+              </p>
+            );
+          })}
         </div>
         <div className={`${styles.grid_item} ${styles.item73}`}>
-        {bigArray2[3].map((topic, idx) => {
-              return <p key={idx} className={styles.smallText}>{topic}</p>;
-            })}
+          {/* {bigArray2[3].map((topic, idx) => {
+            return (
+              <p key={idx} className={styles.smallText}>
+                {topic}
+              </p>
+            );
+          })} */}
         </div>
         <div className={`${styles.grid_item} ${styles.item74}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item75}`}>16/34</div>
@@ -356,14 +380,22 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item84}`}>
-        {bigArray[4].map((topic, idx) => {
-              return <p key={idx} className={styles.smallText}>{topic}</p>;
-            })}
+        {firstSubjectTopics[4].map((topic, idx) => {
+            return (
+              <p key={topic.id} className={styles.smallText}>
+                {topic.topic}
+              </p>
+            );
+          })}
         </div>
         <div className={`${styles.grid_item} ${styles.item85}`}>
-        {bigArray2[4].map((topic, idx) => {
-              return <p key={idx} className={styles.smallText}>{topic}</p>;
-            })}
+          {/* {bigArray2[4].map((topic, idx) => {
+            return (
+              <p key={idx} className={styles.smallText}>
+                {topic}
+              </p>
+            );
+          })} */}
         </div>
         <div className={`${styles.grid_item} ${styles.item86}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item87}`}>
@@ -385,14 +417,22 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item96}`}>
-        {bigArray[5].map((topic, idx) => {
-              return <p key={idx} className={styles.smallText}>{topic}</p>;
-            })}
+        {firstSubjectTopics[5].map((topic, idx) => {
+            return (
+              <p key={topic.id} className={styles.smallText}>
+                {topic.topic}
+              </p>
+            );
+          })}
         </div>
         <div className={`${styles.grid_item} ${styles.item97}`}>
-        {bigArray2[4].map((topic, idx) => {
-              return <p key={idx} className={styles.smallText}>{topic}</p>;
-            })}
+          {/* {bigArray2[4].map((topic, idx) => {
+            return (
+              <p key={idx} className={styles.smallText}>
+                {topic}
+              </p>
+            );
+          })} */}
         </div>
         <div className={`${styles.grid_item} ${styles.item98}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item99}`}>
