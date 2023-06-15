@@ -23,8 +23,6 @@ const Dashboard = () => {
             <ol className={styles.subList}>
               <li><a href="/addsubject">Add Subject</a></li>
               <li><a href="/view_subjects">View Sbujects</a></li>
-             
-
             </ol>
           </li>
           <li className={styles.training}>
@@ -36,13 +34,15 @@ const Dashboard = () => {
           </li>
 
           <li className={styles.training}>
-            <a href="/time_table">Time Table</a>
+            <a href="#">Topics</a>
+            <ol className={styles.subList}>
+            <li><a href="/topics">Add Topics</a></li>
+              <li><a href="/displayTopics">View Topics</a></li>
+            </ol>
           </li>
 
           <li className={styles.training}>
-            <a href="/topics">Add Topics</a>
-          </li><li className={styles.training}>
-            <a href="/displayTopics">View Topics</a>
+            <a href="/time_table">Time Table</a>
           </li>
          
         </ol>
