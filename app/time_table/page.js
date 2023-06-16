@@ -544,6 +544,7 @@ const TimeTable = () => {
               </p>
             );
           })}
+
         </div>
         <div className={`${styles.grid_item} ${styles.item98}`}>{subjects[0].room_name}</div>
         <div className={`${styles.grid_item} ${styles.item99}`}>

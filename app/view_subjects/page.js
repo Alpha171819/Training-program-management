@@ -17,7 +17,21 @@ const TableComponent = () => {
     });
   }, [url]);
 
-  console.log(url);
+  const DeleteId = (id) => {
+    // alert the user to delete the subject or not
+    const areyousure = window.confirm("Are you sure you want to delete?");
+    if (areyousure) {
+      axios
+        .delete(`${url}/subjects/${id}`)
+        .catch((error) => {
+          console.log(error);
+        })
+        .then(() => {
+          window.location.reload();
+        });
+    }
+  };
+
   return (
     <div>
       <Dashboard />
@@ -28,10 +42,13 @@ const TableComponent = () => {
         <li className={`${styles["table-header"]} ${styles.row} `}>
           <div className={`${styles.col} ${styles["col-1"]}`}>Sub ID</div>
           <div className={`${styles.col} ${styles["col-2"]}`}>Subject</div>
+          <div className={`${styles.col} ${styles["col-3"]}`}>Total LD</div>
           <div className={`${styles.col} ${styles["col-3"]}`}>Total Theory</div>
-          <div className={`${styles.col} ${styles["col-4"]}`}>
-            Total Practical
-          </div>
+          <div className={`${styles.col} ${styles["col-4"]}`}>Total Practical</div>
+          <div className={`${styles.col} ${styles["col-3"]}`}>Total ITP</div>
+          <div className={`${styles.col} ${styles["col-3"]}`}>Total Evening Class</div>
+          <div className={`${styles.col} ${styles["col-3"]}`}>Total Classes</div>
+          <div className={`${styles.col} ${styles["col-4"]}`}>Room Name</div>
           <div className={`${styles.col} ${styles["col-4"]}`}>Action</div>
         </li>
 
@@ -52,6 +69,13 @@ const TableComponent = () => {
             >
               {item.sub_name}
             </div>
+
+            <div
+              className={`${styles.col} ${styles["col-2"]}`}
+              data-label="Customer Name"
+            >
+              {item.total_ld}
+            </div>
             <div
               className={`${styles.col} ${styles["col-3"]}`}
               data-label="Amount"
@@ -64,6 +88,34 @@ const TableComponent = () => {
             >
               {item.total_practical}
             </div>
+
+            <div
+              className={`${styles.col} ${styles["col-4"]}`}
+              data-label="Payment Status"
+            >
+              {item.total_itp}
+            </div>
+
+            <div
+              className={`${styles.col} ${styles["col-4"]}`}
+              data-label="Payment Status"
+            >
+              {item.total_evng_classes}
+            </div>
+
+            <div
+              className={`${styles.col} ${styles["col-4"]}`}
+              data-label="Payment Status"
+            >
+              {item.total}
+            </div>
+            <div
+              className={`${styles.col} ${styles["col-4"]}`}
+              data-label="Payment Status"
+            >
+              {item.room_name}
+            </div>
+
             <Link className={styles.button} href={`/addsubject/${item.sub_id}`}>
               <p>EDIT</p>
             </Link>
@@ -85,19 +137,6 @@ const TableComponent = () => {
   );
 };
 
-const DeleteId = (id) => {
-  // alert the user to delete the subject or not
-  const areyousure = window.confirm("Are you sure you want to delete?");
-  if (areyousure) {
-    axios
-      .delete(`http://localhost:3131/subjects/${id}`)
-      .catch((error) => {
-        console.log(error);
-      })
-      .then(() => {
-        window.location.reload();
-      });
-  }
-};
+
 
 export default TableComponent;

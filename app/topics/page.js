@@ -145,7 +145,8 @@ const AddTopic = () => {
         <div className={styles.formGroup}>
           <label htmlFor="bloomLevel">Bloom Level</label>
           <input
-            type="text"
+            type="number"
+            min="1" max="5"
             name="bloomLevel"
             id="bloomLevel"
             value={bloomLevel}

@@ -20,6 +20,9 @@ const AddSubject = () => {
   const [totalITPClasses, setTotalITPClasses] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(""); // State variable for selected course
   const [courseDropdown, setCourseDropdown] = useState([]); // State variable for course dropdown
+  const [room, setroom] = useState([]); 
+  const [ld, setld] = useState([]);
+  const [totalevngClasses, settotalevngClasses] = useState([]);
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle subject details submission
@@ -52,7 +55,11 @@ const AddSubject = () => {
         total_theory: totalTheoryClasses,
         total_practical: totalPracticalClasses,
         total_itp: totalITPClasses,
+        total_ld:ld,
         course_id: selectedCourse,
+        total_evng_classes:totalevngClasses,
+        room_name: room,
+
       })
       .then((res) => {
         console.log(res.data);
@@ -72,6 +79,28 @@ const AddSubject = () => {
             name="subjectName"
             value={subjectName}
             onChange={(e) => setSubjectName(e.target.value)}
+          />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label htmlFor="room">Class Room</label>
+          <input
+            type="text"
+            id="room"
+            name="room"
+            value={room}
+            onChange={(e) => setroom(e.target.value)}
+          />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label htmlFor="totalldClasses">Total LD Classes:</label>
+          <input
+            type="number"
+            id="totalldClasses"
+            name="totalldClasses"
+            value={ld}
+            onChange={(e) => setld(e.target.value)}
           />
         </div>
 
@@ -109,6 +138,19 @@ const AddSubject = () => {
             name="totalITPClasses"
             value={totalITPClasses}
             onChange={(e) => setTotalITPClasses(e.target.value)}
+          />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label htmlFor="totalevngClasses">
+            Total Evening Classes:
+          </label>
+          <input
+            type="number"
+            id="totalevngClasses"
+            name="totalevngClasses"
+            value={totalevngClasses}
+            onChange={(e) => settotalevngClasses(e.target.value)}
           />
         </div>
 
