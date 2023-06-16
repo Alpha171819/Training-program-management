@@ -17,6 +17,8 @@ const TimeTable = () => {
   const [firstSubjectTopics, setFirstSubjectTopics] = useState([]);
   const [secondSubjectTopics, setSecondSubjectTopics] = useState([]);
 
+
+
   let count = 0;
 
   //create a get request to get the instructors data
@@ -50,6 +52,8 @@ const TimeTable = () => {
     dates = [...dates, endDate];
     return dates;
   };
+
+  
 
   const currentDate = new Date(); // Today
   const dates = getDates(
@@ -265,7 +269,7 @@ const TimeTable = () => {
           })}
         </div>
         <div className={`${styles.grid_item} ${styles.item37}`}>
-        {firstSubjectTopics[0]?.map((topic, idx) => {
+        {secondSubjectTopics[0]?.map((topic, idx) => {
             return (
               <p key={topic.id} className={styles.smallText}>
                 {topic.topic}
@@ -273,7 +277,7 @@ const TimeTable = () => {
             );
           })}
         </div>
-        <div className={`${styles.grid_item} ${styles.item38}`}>HW Lab</div>
+        <div className={`${styles.grid_item} ${styles.item38}`}>{subjects[0].room_name}</div>
         <div className={`${styles.grid_item} ${styles.item39}`}>4/34</div>
         <div className={`${styles.grid_item} ${styles.item40}`}>Self Study</div>
         <div className={`${styles.grid_item} ${styles.item41}`}>
@@ -325,7 +329,7 @@ const TimeTable = () => {
           })}
         </div>
         <div className={`${styles.grid_item} ${styles.item49}`}>
-        {firstSubjectTopics[1]?.map((topic, idx) => {
+        {secondSubjectTopics[1]?.map((topic, idx) => {
             return (
               <p key={topic.id} className={styles.smallText}>
                 {topic.topic}
@@ -333,7 +337,7 @@ const TimeTable = () => {
             );
           })}
         </div>
-        <div className={`${styles.grid_item} ${styles.item50}`}>HW Lab</div>
+        <div className={`${styles.grid_item} ${styles.item50}`}>{subjects[0].room_name}</div>
         <div className={`${styles.grid_item} ${styles.item51}`}>8/34</div>
         <div className={`${styles.grid_item} ${styles.item53}`}>  <select>
               { instructors.map((instructor) => {
@@ -376,7 +380,7 @@ const TimeTable = () => {
           })}
         </div>
         <div className={`${styles.grid_item} ${styles.item61}`}>
-        {firstSubjectTopics[2]?.map((topic, idx) => {
+        {secondSubjectTopics[2]?.map((topic, idx) => {
             return (
               <p key={topic.id} className={styles.smallText}>
                 {topic.topic}
@@ -384,7 +388,7 @@ const TimeTable = () => {
             );
           })}
         </div>
-        <div className={`${styles.grid_item} ${styles.item62}`}>HW Lab</div>
+        <div className={`${styles.grid_item} ${styles.item62}`}>{subjects[0].room_name}</div>
         <div className={`${styles.grid_item} ${styles.item63}`}>12/34</div>
         <div className={`${styles.grid_item} ${styles.item64}`}>Half Day</div>
         <div className={`${styles.grid_item} ${styles.item665}`}>  <select>
@@ -428,7 +432,7 @@ const TimeTable = () => {
           })}
         </div>
         <div className={`${styles.grid_item} ${styles.item73}`}>
-        {firstSubjectTopics[3]?.map((topic, idx) => {
+        {secondSubjectTopics[3]?.map((topic, idx) => {
             return (
               <p key={topic.id} className={styles.smallText}>
                 {topic.topic}
@@ -436,7 +440,7 @@ const TimeTable = () => {
             );
           })}
         </div>
-        <div className={`${styles.grid_item} ${styles.item74}`}>HW Lab</div>
+        <div className={`${styles.grid_item} ${styles.item74}`}>{subjects[0].room_name}</div>
         <div className={`${styles.grid_item} ${styles.item75}`}>16/34</div>
         <div className={`${styles.grid_item} ${styles.item76}`}>Self Study</div>
         <div className={`${styles.grid_item} ${styles.item77}`}>  <select>
@@ -448,7 +452,7 @@ const TimeTable = () => {
               )
               } )}
               </select></div>
-        <div className={`${styles.grid_item} ${styles.item78}`}>HW Lab</div>
+        <div className={`${styles.grid_item} ${styles.item78}`}>{subjects[1]?.room_name}</div>
         <div className={`${styles.grid_item} ${styles.item79}`}>128/152</div>
         <div className={`${styles.grid_item} ${styles.item80}`}>
         <select>
@@ -480,7 +484,7 @@ const TimeTable = () => {
           })}
         </div>
         <div className={`${styles.grid_item} ${styles.item85}`}>
-        {firstSubjectTopics[4]?.map((topic, idx) => {
+        {secondSubjectTopics[4]?.map((topic, idx) => {
             return (
               <p key={topic.id} className={styles.smallText}>
                 {topic.topic}
@@ -488,7 +492,7 @@ const TimeTable = () => {
             );
           })}
         </div>
-        <div className={`${styles.grid_item} ${styles.item86}`}>HW Lab</div>
+        <div className={`${styles.grid_item} ${styles.item86}`}>{subjects[0].room_name}</div>
         <div className={`${styles.grid_item} ${styles.item87}`}>
           19/34, 1/59
         </div>
@@ -541,7 +545,7 @@ const TimeTable = () => {
             );
           })}
         </div>
-        <div className={`${styles.grid_item} ${styles.item98}`}>HW Lab</div>
+        <div className={`${styles.grid_item} ${styles.item98}`}>{subjects[0].room_name}</div>
         <div className={`${styles.grid_item} ${styles.item99}`}>
           20/34, 4/59
         </div>

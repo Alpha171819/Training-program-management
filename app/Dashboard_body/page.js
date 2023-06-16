@@ -1,10 +1,26 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../dashboard/Dashboard.module.css';
+import axios from 'axios';
 import Dashboard from '../dashboard/page'; 
 
+
 const Dashboard_body = () => {
+
+  // state for notifications 
+  const [notifications, setNotifications] = useState([])
+  const url = process.env.NEXT_PUBLIC_SERVER_URL;
+
+  useEffect(() => {
+    axios.get(`${url}/getNotification`).then((res) => {
+      setNotifications(res.data);
+      console.log(res.data);
+    });
+  }, [url]);
+
+
+
   return (
 
     <div>
@@ -16,16 +32,12 @@ const Dashboard_body = () => {
         <h2>Notifications</h2>
         <marquee className={styles.notificationsBox} direction="up" scrollamount="2" height="200px">
           <ul>
-            <li>Notification 1</li>
-            <li>Notification 2</li>
-            <li>Notification 3</li>
-            <li>Notification 4</li>
-            <li>Notification 5</li>
-            <li>Notification 6</li>
-            <li>Notification 7</li>
-            <li>Notification 8</li>
-            <li>Notification 9</li>
-            <li>Notification 10</li>
+            {notifications?.map((item, idx) => (
+              <li key={item.id}>
+                <h3>{item.name}</h3>
+                <p>{new Date(item.date).toLocaleDateString()}</p>
+              </li>
+            ))}
           </ul>
         </marquee>
 
