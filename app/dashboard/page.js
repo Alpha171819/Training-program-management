@@ -10,7 +10,7 @@ const Dashboard = () => {
       <nav className={styles.nav}>
         <ol className={styles.navList}>
           <li><a href="/Dashboard_body">Home</a></li>
-          <li><a href="#">Notification</a></li>
+          <li><a href="/addNotification">Notification</a></li>
           <li className={styles.training}>
             <a href="#">Instructors</a>
             <ol className={styles.subList}>
