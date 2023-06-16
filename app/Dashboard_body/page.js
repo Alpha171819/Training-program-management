@@ -49,7 +49,9 @@ const Dashboard_body = () => {
     <div className={styles.centerBox}>
       <h2>Running Courses</h2>
       <ol>
-        <li>Diploma 69 A & B</li>
+        
+          <button className={styles.courseButton}>Diploma 69 A & B</button>
+        
       </ol>
     </div>
   </div>

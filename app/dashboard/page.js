@@ -15,11 +15,8 @@ const Dashboard = () => {
    
         <ol className={styles.navList}>
           <li><a href="/Dashboard_body">Home</a></li>
-<<<<<<< Updated upstream
           <li><a href="/addNotification">Notification</a></li>
-=======
-          <li><a href="/Notifications">Notification</a></li>
->>>>>>> Stashed changes
+
           <li className={styles.training}>
             <a href="#">Instructors</a>
             <ol className={styles.subList}>
