@@ -22,12 +22,13 @@ const TableComponent = () => {
     const areyousure = window.confirm("Are you sure you want to delete?");
     if (areyousure) {
       axios
-        .delete(`${url}/getNotification${id}`)
+        .delete(`${url}/deleteNotification/${id}`)
         .catch((error) => {
           console.log(error);
         })
         .then(() => {
           window.location.reload();
+          alert("Deleted Successfully");
         });
     }
   };
@@ -40,15 +41,8 @@ const TableComponent = () => {
       <h2>Subjects</h2>
       <ul className={styles["responsive-table"]}>
         <li className={`${styles["table-header"]} ${styles.row} `}>
-          <div className={`${styles.col} ${styles["col-1"]}`}>Sub ID</div>
-          <div className={`${styles.col} ${styles["col-2"]}`}>Subject</div>
-          <div className={`${styles.col} ${styles["col-3"]}`}>Total LD</div>
-          <div className={`${styles.col} ${styles["col-3"]}`}>Total Theory</div>
-          <div className={`${styles.col} ${styles["col-4"]}`}>Total Practical</div>
-          <div className={`${styles.col} ${styles["col-3"]}`}>Total ITP</div>
-          <div className={`${styles.col} ${styles["col-3"]}`}>Total Evening Class</div>
-          <div className={`${styles.col} ${styles["col-3"]}`}>Total Classes</div>
-          <div className={`${styles.col} ${styles["col-4"]}`}>Room Name</div>
+          <div className={`${styles.col} ${styles["col-1"]}`}>Name</div>
+          <div className={`${styles.col} ${styles["col-2"]}`}>Date</div>
           <div className={`${styles.col} ${styles["col-4"]}`}>Action</div>
         </li>
 
@@ -61,68 +55,18 @@ const TableComponent = () => {
               className={`${styles.col} ${styles["col-1"]}`}
               data-label="Job Id"
             >
-              {item.sub_id}
+              {item.name}
             </div>
             <div
-              className={`${styles.col} ${styles["col-2"]}`}
-              data-label="Customer Name"
+              className={`${styles.col} ${styles["col-1"]}`}
+              data-label="Job Id"
             >
-              {item.sub_name}
+              {new Date(item.date).toLocaleDateString()}
             </div>
-
-            <div
-              className={`${styles.col} ${styles["col-2"]}`}
-              data-label="Customer Name"
-            >
-              {item.total_ld}
-            </div>
-            <div
-              className={`${styles.col} ${styles["col-3"]}`}
-              data-label="Amount"
-            >
-              {item.total_theory}
-            </div>
-            <div
-              className={`${styles.col} ${styles["col-4"]}`}
-              data-label="Payment Status"
-            >
-              {item.total_practical}
-            </div>
-
-            <div
-              className={`${styles.col} ${styles["col-4"]}`}
-              data-label="Payment Status"
-            >
-              {item.total_itp}
-            </div>
-
-            <div
-              className={`${styles.col} ${styles["col-4"]}`}
-              data-label="Payment Status"
-            >
-              {item.total_evng_classes}
-            </div>
-
-            <div
-              className={`${styles.col} ${styles["col-4"]}`}
-              data-label="Payment Status"
-            >
-              {item.total}
-            </div>
-            <div
-              className={`${styles.col} ${styles["col-4"]}`}
-              data-label="Payment Status"
-            >
-              {item.room_name}
-            </div>
-
-            <Link className={styles.button} href={`/addsubject/${item.sub_id}`}>
-              <p>EDIT</p>
-            </Link>
 
             <button
               onClick={() => {
-                DeleteId(item.sub_id);
+                DeleteId(item.id);
               }}
               type="submit"
               className={styles.button}
