@@ -15,7 +15,12 @@ const Dashboard = () => {
    
         <ol className={styles.navList}>
           <li><a href="/Dashboard_body">Home</a></li>
-          <li><a href="/addNotification">Notification</a></li>
+          <li><a href="#">Notification</a>
+          <ol className={styles.subList}>
+              <li><a href="/addNotification">Add Notifications</a></li>
+              <li><a href="/viewNotifications">View Notifications</a></li>
+            </ol>
+          </li>
 
           <li className={styles.training}>
             <a href="#">Instructors</a>

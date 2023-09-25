@@ -20,6 +20,7 @@ const Notifications = () => {
         });
     }, [url]);
 
+
     const addnotification = () => {
         axios
             .post(`${url}/notifications`, {
