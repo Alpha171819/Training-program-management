@@ -1,0 +1,5 @@
+GET http://localhost:3131/getFirstSubjectTopics/6
+
+###
+
+GET http://localhost:3131/getSecondSubjectTopics/6

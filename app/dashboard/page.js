@@ -48,12 +48,12 @@ const Dashboard = () => {
             <a href="#">Topics</a>
             <ol className={styles.subList}>
             <li><a href="/topics">Add Topics</a></li>
-              <li><a href="/displayTopics">View Topics</a></li>
+              <li><a href="/selectsubjectfortopic">View Topics</a></li>
             </ol>
           </li>
 
           <li className={styles.training}>
-            <a href="/time_table">Time Table</a>
+            <a href="/courseselectfortt">Time Table</a>
           </li>
          
         </ol>

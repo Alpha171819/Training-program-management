@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import axios, { all } from "axios";
 import Dashboard from "../dashboard/page";
 import { ru } from "date-fns/locale";
+import { Source_Serif_4 } from "next/font/google";
 
 // Example usage
 
@@ -16,6 +17,18 @@ const TimeTable = () => {
   const [runningSubjectsID, setRunningSubjectsID] = useState([]);
   const [firstSubjectTopics, setFirstSubjectTopics] = useState([]);
   const [secondSubjectTopics, setSecondSubjectTopics] = useState([]);
+  const[totalfirstsubjecttopics, setTotalFirstSubjectTopics] = useState([]);
+  const[totalsecondsubjecttopics, setTotalSecondSubjectTopics] = useState([]);
+  const[firstsub, setFirstSub] = useState([]);
+  const[secondsub, setSecondSub] = useState([]);
+
+
+  const loopTimes = [0,1,2,3]
+
+  const loopTimes2 = [0,1,2]
+
+
+
 
 
 
@@ -35,6 +48,19 @@ const TimeTable = () => {
     const weeksDifference = differenceInWeeks(currentDate, startOfWeekDate);
     return weeksDifference + 1; // Adding 1 to make the week numbers start from 1
   };
+
+
+const savetable = () => {
+
+  axios.post(`${url}/savetimetable`, {
+    children : firstSubjectTopics.concat(secondSubjectTopics) }
+  
+  ).then((res) => {
+    console.log(res.data);
+  });
+};
+
+
 
   // get the dates between two dates
   const getDates = (startDate, endDate) => {
@@ -67,6 +93,9 @@ const TimeTable = () => {
 
   const url = process.env.NEXT_PUBLIC_SERVER_URL;
 
+
+  // fetching the course data
+
   useEffect(() => {
     axios.get(`${url}/courses`).then((res) => {
       setcourse(res.data);
@@ -81,6 +110,7 @@ const TimeTable = () => {
     });
   }, [url]);
 
+  // fetching the running subjects data
   useEffect(() => {
     axios.get(`${url}/runningSubjects`).then((res) => {
       setRunningSubjectsID(res.data);
@@ -88,40 +118,50 @@ const TimeTable = () => {
     });
   }, [url]);
 
+  // fetching the topics data of first subject and second subject
+
   useEffect(() => {
     // fetch the topics for the first subject
     if (runningSubjectsID.length === 0) return;
     axios
-      .get(`${url}/getSixDayTopics/${runningSubjectsID[0]?.sub_id}`)
+     .get(`${url}/getfirstsubjecttopics/${runningSubjectsID[0]?.sub_id}`)
       .then((res) => {
-        setFirstSubjectTopics(res.data);
-        console.log("first subject topicsso", res.data);
+        setFirstSubjectTopics(res.data.array24);
+        setTotalFirstSubjectTopics(res.data.topics.length);
+        console.log("first subject topics", res.data.topics);
       });
+  
     axios
-      .get(`${url}/getSixDayTopics/${runningSubjectsID[1]?.sub_id}`)
+      .get(`${url}/getsecondsubjecttopics/${runningSubjectsID[1]?.sub_id}`)
       .then((res) => {
-        setSecondSubjectTopics(res.data);
-        console.log("second subject topicsso", res.data);
+        setSecondSubjectTopics(res.data.array18);
+        setTotalSecondSubjectTopics(res.data.topics.length);
+        console.log("second subject topics", res.data.topics.length);
       });
   }, [url, runningSubjectsID]);
 
-  useEffect(() => {
-    const refTopics = [];
-    runningSubjectsID.forEach((subject) => {
-      refTopics.push(axios.get(`${url}/topicReference/${subject.sub_id}`));
-    });
-    const realTopics = [];
-    axios.all(refTopics).then(
-      axios.spread((...allData) => {
-        allData.forEach((data) => {
-          realTopics.push(data.data);
-        });
-        setTopics(realTopics);
-      })
-    );
-  }, [url, runningSubjectsID]);
+  
+// fetching the topics data through topic reference table
 
-  console.log("topics", topics);
+  // useEffect(() => {
+  //   const refTopics = [];
+  //   runningSubjectsID.forEach((subject) => {
+  //     refTopics.push(axios.get(`${url}/topicReference/${subject.sub_id}`));
+  //   });
+  //   const realTopics = [];
+  //   axios.all(refTopics).then(
+  //     axios.spread((...allData) => {
+  //       allData.forEach((data) => {
+  //         realTopics.push(data.data);
+  //       });
+  //       setTopics(realTopics);
+  //     })
+  //   );
+  // }, [url, runningSubjectsID]);
+
+  // console.log("topics", topics);
+  
+  
   useEffect(() => {
     if (runningSubjectsID.length === 0) return;
     const getSubjectDetails = () => {
@@ -133,6 +173,11 @@ const TimeTable = () => {
           const allData2 = allData[1];
           console.log("allData1", allData1);
           console.log("allData2", allData2);
+          setFirstSub(allData1.data[0].total)
+          setSecondSub(allData2.data[0].total)
+        
+
+
 
           setSubjects([allData1.data[0], allData2.data[0]]);
         })
@@ -148,10 +193,9 @@ const TimeTable = () => {
   const startDate = new Date(course[0]?.start_date); // start date
 
   const weekNumber = getWeekNumber(startDate, currentDate);
-  console.log(weekNumber); // Output: 23
+  // console.log(weekNumber); // Output: 23
 
   const endOfWeekDate = endOfWeek(currentDate);
-
   useEffect(() => {
     if (topics.length === 0) return;
     console.log(topics);
@@ -171,6 +215,7 @@ const TimeTable = () => {
   )
     return <div className={styles.loading}>Loading...</div>;
   return (
+  
     <div className={styles.body}>
       <Dashboard />
       <div className={styles.grid_container}>
@@ -259,26 +304,56 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item36}`}>
-          {firstSubjectTopics[0].map((topic, idx) => {
-            console.log(topic);
-            return (
-              <p key={topic.id} className={styles.smallText}>
-                {topic.topic}
-              </p>
-            );
-          })}
+
+
+          {
+          loopTimes.slice(0,1).map(() => {
+            const mapper = new Map();
+
+         return loopTimes.map((topic, idx) => {
+            const {id, learning_objl} = firstSubjectTopics[topic];
+              
+             // only return paragaraph if the topic is not repeated
+            if (!mapper.has(learning_objl)) {
+              mapper.set(learning_objl, true); // set any value to Map
+              return (
+                <p key={id} className={styles.smallText}>
+                  {learning_objl}
+                </p>
+              );
+            }
+          
+          })
+        })
+          }
         </div>
         <div className={`${styles.grid_item} ${styles.item37}`}>
-        {secondSubjectTopics[0]?.map((topic, idx) => {
-            return (
-              <p key={topic.id} className={styles.smallText}>
-                {topic.topic}
-              </p>
-            );
-          })}
+
+          {
+          loopTimes2.slice(0,1).map(() => {
+            const mapper = new Map();
+
+          return loopTimes2.map((topic, idx) => {
+
+            const {id, learning_objl} = secondSubjectTopics[topic];
+              
+             // only return paragaraph if the topic is not repeated
+            if (!mapper.has(learning_objl)) {
+              mapper.set(learning_objl, true); // set any value to Map
+              return (
+                <p key={id} className={styles.smallText}>
+                  {learning_objl}
+                </p>
+              );
+            }
+
+          })
+        }
+          )
+          }
         </div>
         <div className={`${styles.grid_item} ${styles.item38}`}>{subjects[0].room_name}</div>
-        <div className={`${styles.grid_item} ${styles.item39}`}>4/34</div>
+        <div className={`${styles.grid_item} ${styles.item39}`}>{4+"/"+firstsub}</div> 
         <div className={`${styles.grid_item} ${styles.item40}`}>Self Study</div>
         <div className={`${styles.grid_item} ${styles.item41}`}>
 
@@ -298,7 +373,7 @@ const TimeTable = () => {
 
         </div>
         <div className={`${styles.grid_item} ${styles.item42}`}>HW Lab</div>
-        <div className={`${styles.grid_item} ${styles.item43}`}>119/152</div>
+        <div className={`${styles.grid_item} ${styles.item43}`}>{3+"/"+secondsub}</div>
         <div className={`${styles.grid_item} ${styles.item44}`}>
         <select>
               { instructors.map((instructor) => {
@@ -320,25 +395,55 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item48}`}>
-          {firstSubjectTopics[1].map((topic, idx) => {
-            return (
-              <p key={topic.id} className={styles.smallText}>
-                {topic.topic}
-              </p>
-            );
-          })}
-        </div>
+       
+       
+        {
+          loopTimes.slice(0,1).map(() => {
+            const mapper = new Map();
+
+         return loopTimes.map((topic, idx) => {
+            const {id, learning_objl} = firstSubjectTopics[topic + 4];
+              
+             // only return paragaraph if the topic is not repeated
+            if (!mapper.has(learning_objl)) {
+              mapper.set(learning_objl, true); // set any value to Map
+              return (
+                <p key={id} className={styles.smallText}>
+                  {learning_objl}
+                </p>
+              );
+            }
+          
+          })
+        })
+      }
+       
+            </div>
         <div className={`${styles.grid_item} ${styles.item49}`}>
-        {secondSubjectTopics[1]?.map((topic, idx) => {
-            return (
-              <p key={topic.id} className={styles.smallText}>
-                {topic.topic}
-              </p>
-            );
-          })}
+        {
+
+loopTimes2.slice(0,1).map(() => {
+  const mapper = new Map();
+
+return loopTimes2.map((topic, idx) => {
+  const {id, learning_objl} = secondSubjectTopics[topic + 3];
+
+
+  // only return paragaraph if the topic is not repeated
+  if (!mapper.has(learning_objl)) {
+    mapper.set(learning_objl, true); // set any value to Map
+    return (
+      <p key={id} className={styles.smallText}>
+        {learning_objl}
+      </p>
+    );
+    }}) })
+
+
+        }
         </div>
         <div className={`${styles.grid_item} ${styles.item50}`}>{subjects[0].room_name}</div>
-        <div className={`${styles.grid_item} ${styles.item51}`}>8/34</div>
+        <div className={`${styles.grid_item} ${styles.item51}`}>{8+"/"+firstsub}</div>
         <div className={`${styles.grid_item} ${styles.item53}`}>  <select>
               { instructors.map((instructor) => {
                 return(
@@ -349,7 +454,7 @@ const TimeTable = () => {
               } )}
               </select></div>
         <div className={`${styles.grid_item} ${styles.item54}`}>HW Lab</div>
-        <div className={`${styles.grid_item} ${styles.item55}`}>122/152</div>
+        <div className={`${styles.grid_item} ${styles.item55}`}>{6+"/"+secondsub}</div>
         <div className={`${styles.grid_item} ${styles.item56}`}>
         <select>
               { instructors.map((instructor) => {
@@ -371,25 +476,52 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item60}`}>
-          {firstSubjectTopics[2].map((topic, idx) => {
-            return (
-              <p key={topic.id} className={styles.smallText}>
-                {topic.topic}
-              </p>
-            );
-          })}
+        {
+          loopTimes.slice(0,1).map(() => {
+            const mapper = new Map();
+
+         return loopTimes.map((topic, idx) => {
+            const {id, learning_objl} = firstSubjectTopics[topic + 8];
+              
+             // only return paragaraph if the topic is not repeated
+            if (!mapper.has(learning_objl)) {
+              mapper.set(learning_objl, true); // set any value to Map
+              return (
+                <p key={id} className={styles.smallText}>
+                  {learning_objl}
+                </p>
+              );
+            }
+          
+          })
+        })
+      }
         </div>
         <div className={`${styles.grid_item} ${styles.item61}`}>
-        {secondSubjectTopics[2]?.map((topic, idx) => {
-            return (
-              <p key={topic.id} className={styles.smallText}>
-                {topic.topic}
-              </p>
-            );
-          })}
+        {
+
+loopTimes2.slice(0,1).map(() => {
+  const mapper = new Map();
+
+return loopTimes2.map((topic, idx) => {
+  const {id, learning_objl} = secondSubjectTopics[topic + 6];
+
+
+  // only return paragaraph if the topic is not repeated
+  if (!mapper.has(learning_objl)) {
+    mapper.set(learning_objl, true); // set any value to Map
+    return (
+      <p key={id} className={styles.smallText}>
+        {learning_objl}
+      </p>
+    );
+    }}) })
+
+
+        }
         </div>
         <div className={`${styles.grid_item} ${styles.item62}`}>{subjects[0].room_name}</div>
-        <div className={`${styles.grid_item} ${styles.item63}`}>12/34</div>
+        <div className={`${styles.grid_item} ${styles.item63}`}>{12+"/"+firstsub}</div>
         <div className={`${styles.grid_item} ${styles.item64}`}>Half Day</div>
         <div className={`${styles.grid_item} ${styles.item665}`}>  <select>
               { instructors.map((instructor) => {
@@ -401,7 +533,7 @@ const TimeTable = () => {
               } )}
               </select></div>
         <div className={`${styles.grid_item} ${styles.item66}`}>HW Lab</div>
-        <div className={`${styles.grid_item} ${styles.item67}`}>125/152</div>
+        <div className={`${styles.grid_item} ${styles.item67}`}>{9+"/"+secondsub}</div>
         <div className={`${styles.grid_item} ${styles.item68}`}>
         <select>
               { instructors.map((instructor) => {
@@ -423,25 +555,52 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item72}`}>
-          {firstSubjectTopics[3].map((topic, idx) => {
-            return (
-              <p key={topic.id} className={styles.smallText}>
-                {topic.topic}
-              </p>
-            );
-          })}
+        {
+          loopTimes.slice(0,1).map(() => {
+            const mapper = new Map();
+
+         return loopTimes.map((topic, idx) => {
+            const {id, learning_objl} = firstSubjectTopics[topic + 12];
+              
+             // only return paragaraph if the topic is not repeated
+            if (!mapper.has(learning_objl)) {
+              mapper.set(learning_objl, true); // set any value to Map
+              return (
+                <p key={id} className={styles.smallText}>
+                  {learning_objl}
+                </p>
+              );
+            }
+          
+          })
+        })
+      }
         </div>
         <div className={`${styles.grid_item} ${styles.item73}`}>
-        {secondSubjectTopics[3]?.map((topic, idx) => {
-            return (
-              <p key={topic.id} className={styles.smallText}>
-                {topic.topic}
-              </p>
-            );
-          })}
+        {
+
+loopTimes2.slice(0,1).map(() => {
+  const mapper = new Map();
+
+return loopTimes2.map((topic, idx) => {
+  const {id, learning_objl} = secondSubjectTopics[topic + 9];
+
+
+  // only return paragaraph if the topic is not repeated
+  if (!mapper.has(learning_objl)) {
+    mapper.set(learning_objl, true); // set any value to Map
+    return (
+      <p key={id} className={styles.smallText}>
+        {learning_objl}
+      </p>
+    );
+    }}) })
+
+
+        }
         </div>
         <div className={`${styles.grid_item} ${styles.item74}`}>{subjects[0].room_name}</div>
-        <div className={`${styles.grid_item} ${styles.item75}`}>16/34</div>
+        <div className={`${styles.grid_item} ${styles.item75}`}>{16+"/"+firstsub}</div>
         <div className={`${styles.grid_item} ${styles.item76}`}>Self Study</div>
         <div className={`${styles.grid_item} ${styles.item77}`}>  <select>
               { instructors.map((instructor) => {
@@ -453,7 +612,7 @@ const TimeTable = () => {
               } )}
               </select></div>
         <div className={`${styles.grid_item} ${styles.item78}`}>{subjects[1]?.room_name}</div>
-        <div className={`${styles.grid_item} ${styles.item79}`}>128/152</div>
+        <div className={`${styles.grid_item} ${styles.item79}`}>{12+"/"+secondsub}</div>
         <div className={`${styles.grid_item} ${styles.item80}`}>
         <select>
               { instructors.map((instructor) => {
@@ -475,26 +634,53 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item84}`}>
-          {firstSubjectTopics[4].map((topic, idx) => {
-            return (
-              <p key={topic.id} className={styles.smallText}>
-                {topic.topic}
-              </p>
-            );
-          })}
+        {
+          loopTimes.slice(0,1).map(() => {
+            const mapper = new Map();
+
+         return loopTimes.map((topic, idx) => {
+            const {id, learning_objl} = firstSubjectTopics[topic + 16];
+              
+             // only return paragaraph if the topic is not repeated
+            if (!mapper.has(learning_objl)) {
+              mapper.set(learning_objl, true); // set any value to Map
+              return (
+                <p key={id} className={styles.smallText}>
+                  {learning_objl}
+                </p>
+              );
+            }
+          
+          })
+        })
+      }
         </div>
         <div className={`${styles.grid_item} ${styles.item85}`}>
-        {secondSubjectTopics[4]?.map((topic, idx) => {
-            return (
-              <p key={topic.id} className={styles.smallText}>
-                {topic.topic}
-              </p>
-            );
-          })}
+        {
+
+loopTimes2.slice(0,1).map(() => {
+  const mapper = new Map();
+
+return loopTimes2.map((topic, idx) => {
+  const {id, learning_objl} = secondSubjectTopics[topic + 12];
+
+
+  // only return paragaraph if the topic is not repeated
+  if (!mapper.has(learning_objl)) {
+    mapper.set(learning_objl, true); // set any value to Map
+    return (
+      <p key={id} className={styles.smallText}>
+        {learning_objl}
+      </p>
+    );
+    }}) })
+
+
+        }
         </div>
         <div className={`${styles.grid_item} ${styles.item86}`}>{subjects[0].room_name}</div>
         <div className={`${styles.grid_item} ${styles.item87}`}>
-          19/34, 1/59
+          {20+"/"+firstsub}
         </div>
         <div className={`${styles.grid_item} ${styles.item89}`}>
         <select>
@@ -508,7 +694,7 @@ const TimeTable = () => {
               </select>
         </div>
         <div className={`${styles.grid_item} ${styles.item90}`}>Exam Hall</div>
-        <div className={`${styles.grid_item} ${styles.item91}`}>3/3</div>
+        <div className={`${styles.grid_item} ${styles.item91}`}>{15+"/"+secondsub}</div>
         <div className={`${styles.grid_item} ${styles.item92}`}>  <select>
               { instructors.map((instructor) => {
                 return(
@@ -528,27 +714,54 @@ const TimeTable = () => {
           {subjects[1]?.sub_name}
         </div>
         <div className={`${styles.grid_item} ${styles.item96}`}>
-          {firstSubjectTopics[5]?.map((topic, idx) => {
-            return (
-              <p key={topic.id} className={styles.smallText}>
-                {topic.topic}
-              </p>
-            );
-          })}
+        {
+          loopTimes.slice(0,1).map(() => {
+            const mapper = new Map();
+
+         return loopTimes.map((topic, idx) => {
+            const {id, learning_objl} = firstSubjectTopics[topic + 20];
+              
+             // only return paragaraph if the topic is not repeated
+            if (!mapper.has(learning_objl)) {
+              mapper.set(learning_objl, true); // set any value to Map
+              return (
+                <p key={id} className={styles.smallText}>
+                  {learning_objl}
+                </p>
+              );
+            }
+          
+          })
+        })
+      }
         </div>
         <div className={`${styles.grid_item} ${styles.item97}`}>
-        {secondSubjectTopics[5]?.map((topic, idx) => {
-            return (
-              <p key={topic.id} className={styles.smallText}>
-                {topic.topic}
-              </p>
-            );
-          })}
+        {
+
+loopTimes2.slice(0,1).map(() => {
+  const mapper = new Map();
+
+return loopTimes2.map((topic, idx) => {
+  const {id, learning_objl} = secondSubjectTopics[topic + 15];
+
+
+  // only return paragaraph if the topic is not repeated
+  if (!mapper.has(learning_objl)) {
+    mapper.set(learning_objl, true); // set any value to Map
+    return (
+      <p key={id} className={styles.smallText}>
+        {learning_objl}
+      </p>
+    );
+    }}) })
+
+
+        }
 
         </div>
         <div className={`${styles.grid_item} ${styles.item98}`}>{subjects[0].room_name}</div>
         <div className={`${styles.grid_item} ${styles.item99}`}>
-          20/34, 4/59
+          {24+"/"+firstsub}
         </div>
         <div className={`${styles.grid_item} ${styles.item100}`}>Half Day</div>
         <div className={`${styles.grid_item} ${styles.item101}`}>
@@ -563,7 +776,7 @@ const TimeTable = () => {
               </select>
         </div>
         <div className={`${styles.grid_item} ${styles.item102}`}>HW Lab</div>
-        <div className={`${styles.grid_item} ${styles.item103}`}>131/152</div>
+        <div className={`${styles.grid_item} ${styles.item103}`}>{18+"/"+secondsub}</div>
         <div className={`${styles.grid_item} ${styles.item104}`}>
         <select>
               { instructors.map((instructor) => {
@@ -589,9 +802,14 @@ const TimeTable = () => {
           Misc/Exam/Eve
         </div>
       </div>
-      <button className={styles.centerButton}>
+      <button onClick={savetable} className={styles.centerButton}>
         Save TimeTable for {new Date().toLocaleDateString()}
       </button>
+      <div style={{height: "200px"}}>
+
+
+      </div>
+     
     </div>
   );
 };

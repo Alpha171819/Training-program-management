@@ -72,10 +72,10 @@ const Dashboard_body = () => {
     </div>
 
     <div className={styles.centerBox}>
-      <h2>Running Courses</h2>
+      <h2> Running Courses</h2>
       <ol>
         
-          <button className={styles.courseButton}>Diploma 69 A & B</button>
+          <button className={styles.courseButton}><a href='/piechart'>Diploma 69 A & B</a></button>
         
       </ol>
     </div>

@@ -41,16 +41,16 @@ const AddTopic = () => {
 
       const newTopic = {
         
-        cnt:0,
+      
         terminal_obj:terminalObjective,
         enabling_obj:enablingObjective,
         learning_obj:learningObjective,
-        bloom_level:bloomLevel,
+        blooms_level:bloomLevel,
         LD:L_D,
         theory_cnt:theoryClasses,
         practical_cnt:practicalClasses,
         itp_cnt:ITP,
-        evng_classes:eveningClasses,
+        evening_classes:eveningClasses,
         sub_id: selectedSubject,
 
       };
@@ -61,10 +61,10 @@ const AddTopic = () => {
         .catch((error) => alert(error));
   
       
-        axios
-        .post(`${url}/addTopicReference`, newTopic)
-        .then((res) => alert('successfully posted'))
-        .catch((error) => alert(error));
+        // axios
+        // .post(`${url}/addTopicReference`, newTopic)
+        // .then((res) => alert('successfully posted'))
+        // .catch((error) => alert(error));
   
       // setSelectedSubject('');
       // setTerminalObjective('');
