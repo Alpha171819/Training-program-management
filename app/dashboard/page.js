@@ -1,6 +1,6 @@
 "use client"
 import styles from './Dashboard.module.css';
-
+import Image from 'next/image';
 
 const Dashboard = () => {
 
@@ -12,9 +12,10 @@ const Dashboard = () => {
 
       <nav className={styles.nav}>
 
-   
+        
         <ol className={styles.navList}>
           
+        <div className={styles.logo}>{" "}</div>
           <li><a href="/Dashboard_body">Home</a></li>
           <li><a href="#">Notification</a>
           <ol className={styles.subList}>

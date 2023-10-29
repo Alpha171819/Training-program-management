@@ -14,6 +14,7 @@ const CourseSelect = () => {
 // get course details and store in a state
 const[course, setCourse] = useState([]);
 const[course_id, setCourse_id] = useState("");
+const [temp, setTemp] = useState([])
 
 
   const createTimetable = () => {
@@ -30,8 +31,9 @@ const url = process.env.NEXT_PUBLIC_SERVER_URL
 useEffect(() => {
     axios.get(`${url}/courses`)
     .then((res) => {setCourse (res.data)
-        console.log("course data is this one for dropdown", res.data)}).catch((error) => console.log(error));
-}, [url]);
+        console.log("course data is this one for dropdown", res.data)}).catch((error) => console.log(error))
+      .catch((error) => console.log(error));
+      }, [url]);
 
 
   return (
@@ -46,11 +48,11 @@ useEffect(() => {
           <select
             name="subject"
             id="subject"
-            value={course}
-            onChange={(e) => setCourse(e.target.value)}
+            value={temp ? temp : ""}
+            onChange={(e) => setTemp(e.target.value)}
           >
             <option value="">Select a Course</option>
-            {course.map((course) => (
+            {course?.map((course) => (
               <option key={course.course_name} value={course.course_id}>
                 {course.course_name} {course.course_id}
               </option>
@@ -60,9 +62,9 @@ useEffect(() => {
           <button
             type="button"
             onClick={() => {
-              setCourse_id(course);
+              setCourse_id(temp);
               createTimetable();
-              console.log("course id is ", course_id);
+              console.log("course id is ", temp);
             }}
           >
             Submit

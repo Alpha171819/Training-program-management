@@ -105,3 +105,14 @@ a {
     color-scheme: dark;
   }
 }
+
+
+.container_pie  * {
+  border: 1px solid black;
+  padding: 4px;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+}

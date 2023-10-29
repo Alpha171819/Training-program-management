@@ -12,6 +12,8 @@ import Dashboard from '../dashboard/page';
 const AddTopic = () => {
     const [subjects, setSubjects] = useState([]);
     const [selectedSubject, setSelectedSubject] = useState('');
+    const [selectedCourse, setSelectedCourse] = useState([]);
+    const [courses, setCourses] = useState([]);
     const [terminalObjective, setTerminalObjective] = useState('');
     const [enablingObjective, setEnablingObjective] = useState('');
     const [learningObjective, setLearningObjective] = useState('');
@@ -31,30 +33,48 @@ const AddTopic = () => {
         .catch((error) => console.log(error));
       
     }, [url]);
+
+    useEffect(() => {
+      axios
+        .get(`${url}/courses`) // Replace with your API endpoint for fetching subjects
+        .then((res) => setCourses(res.data))
+        .catch((error) => console.log(error));
+      
+    }, [url]);
+
     const addTopicToDB = () => {
       // alert to confirm adding topic
       if (!confirm('Are you sure you want to add this topic?')) return;
-      if (selectedSubject === '' || terminalObjective === '' || enablingObjective === '' || learningObjective === '' || L_D === '' || theoryClasses === '' || practicalClasses === '' || ITP === '' || eveningClasses === '') {
-        alert('Please fill all the fields');
+      if (
+        selectedSubject === "" ||
+        terminalObjective === "" ||
+        enablingObjective === "" ||
+        learningObjective === "" ||
+        L_D === "" ||
+        theoryClasses === "" ||
+        practicalClasses === "" ||
+        ITP === "" ||
+        eveningClasses === "" ||
+        selectedCourse === ""
+      ) {
+        alert("Please fill all the fields");
         return;
       }
 
       const newTopic = {
-        
-      
-        terminal_obj:terminalObjective,
-        enabling_obj:enablingObjective,
-        learning_obj:learningObjective,
-        blooms_level:bloomLevel,
-        LD:L_D,
-        theory_cnt:theoryClasses,
-        practical_cnt:practicalClasses,
-        itp_cnt:ITP,
-        evening_classes:eveningClasses,
+        terminal_obj: terminalObjective,
+        enabling_obj: enablingObjective,
+        learning_obj: learningObjective,
+        blooms_level: bloomLevel,
+        LD: L_D,
+        theory_cnt: theoryClasses,
+        practical_cnt: practicalClasses,
+        itp_cnt: ITP,
+        evening_classes: eveningClasses,
         sub_id: selectedSubject,
-
+        course_id: selectedCourse,
       };
-      
+    console.log("new topic is ", newTopic)  
       axios
         .post(`${url}/topic`, newTopic)
         .then((res) => alert('successfully posted'))
@@ -90,6 +110,20 @@ const AddTopic = () => {
       </button>
       <form className={styles.form}>
       <div className={styles.formGroup}>
+        <label htmlFor="course">course</label>
+          <select
+            name="course"
+            id="course"
+            value={selectedCourse}
+            onChange={(e) => setSelectedCourse(e.target.value)}
+          >
+            <option value="">Select a course</option>
+            {courses.map((course) => (
+              <option key={course.course_id} value={course.course_id}>
+                {course.course_name}
+              </option>
+            ))}
+          </select>
           <label htmlFor="subject">Subject</label>
           <select
             name="subject"

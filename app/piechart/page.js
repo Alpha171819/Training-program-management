@@ -8,7 +8,7 @@ import Dashboard from '../dashboard/page';
 import { set } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import { PieChart } from 'react-minimal-pie-chart';
-
+import styles from './page.module.css'
 
 
 
@@ -102,10 +102,10 @@ const[running_subjects, setRunningSubjects] = useState([]);
           { title: "Running Subjects", value: 2, color: "orange" },
         ]}
       />
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <table className="table table-bordered">
+      <div className="">
+        <div className={`${styles.row}`}>
+          <div className={`${styles.row} flex`}>
+            <table className="table container_pie table-bordered">
               <thead>
                 <tr>
                   <th>Subject Name</th>

@@ -150,4 +150,9 @@
   }
 
   
- 
+ .logo {
+    background: url('./mceme_logo.png');
+    height: 50px;
+    width: 40px;
+    background-size: cover;
+ }
