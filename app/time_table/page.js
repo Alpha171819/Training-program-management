@@ -805,11 +805,11 @@ return loopTimes2.map((topic, idx) => {
       <button onClick={savetable} className={styles.centerButton}>
         Save TimeTable for {new Date().toLocaleDateString()}
       </button>
+              <button onClick={() => window.print()} style={{padding: "10px"}}>Save as PDF</button>
       <div style={{height: "200px"}}>
 
 
       </div>
-     
     </div>
   );
 };
