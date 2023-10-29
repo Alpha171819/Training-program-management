@@ -358,7 +358,7 @@ const savetable = () => {
         <div className={`${styles.grid_item} ${styles.item41}`}>
 
          
-             <select>
+              <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
               <option key={instructor.id} value={instructor.id}>
@@ -367,6 +367,8 @@ const savetable = () => {
               )
               } )}
               </select>
+
+            
             
          
        
@@ -375,7 +377,7 @@ const savetable = () => {
         <div className={`${styles.grid_item} ${styles.item42}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item43}`}>{3+"/"+secondsub}</div>
         <div className={`${styles.grid_item} ${styles.item44}`}>
-        <select>
+         <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
               <option key={instructor.id} value={instructor.id}>
@@ -444,7 +446,7 @@ return loopTimes2.map((topic, idx) => {
         </div>
         <div className={`${styles.grid_item} ${styles.item50}`}>{subjects[0].room_name}</div>
         <div className={`${styles.grid_item} ${styles.item51}`}>{8+"/"+firstsub}</div>
-        <div className={`${styles.grid_item} ${styles.item53}`}>  <select>
+        <div className={`${styles.grid_item} ${styles.item53}`}>   <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
               <option key={instructor.id} value={instructor.id}>
@@ -456,7 +458,7 @@ return loopTimes2.map((topic, idx) => {
         <div className={`${styles.grid_item} ${styles.item54}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item55}`}>{6+"/"+secondsub}</div>
         <div className={`${styles.grid_item} ${styles.item56}`}>
-        <select>
+         <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
               <option key={instructor.id} value={instructor.id}>
@@ -523,7 +525,7 @@ return loopTimes2.map((topic, idx) => {
         <div className={`${styles.grid_item} ${styles.item62}`}>{subjects[0].room_name}</div>
         <div className={`${styles.grid_item} ${styles.item63}`}>{12+"/"+firstsub}</div>
         <div className={`${styles.grid_item} ${styles.item64}`}>Half Day</div>
-        <div className={`${styles.grid_item} ${styles.item665}`}>  <select>
+        <div className={`${styles.grid_item} ${styles.item665}`}>   <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
               <option key={instructor.id} value={instructor.id}>
@@ -535,7 +537,7 @@ return loopTimes2.map((topic, idx) => {
         <div className={`${styles.grid_item} ${styles.item66}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item67}`}>{9+"/"+secondsub}</div>
         <div className={`${styles.grid_item} ${styles.item68}`}>
-        <select>
+         <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
               <option key={instructor.id} value={instructor.id}>
@@ -602,7 +604,7 @@ return loopTimes2.map((topic, idx) => {
         <div className={`${styles.grid_item} ${styles.item74}`}>{subjects[0].room_name}</div>
         <div className={`${styles.grid_item} ${styles.item75}`}>{16+"/"+firstsub}</div>
         <div className={`${styles.grid_item} ${styles.item76}`}>Self Study</div>
-        <div className={`${styles.grid_item} ${styles.item77}`}>  <select>
+        <div className={`${styles.grid_item} ${styles.item77}`}>   <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
               <option key={instructor.id} value={instructor.id}>
@@ -614,7 +616,7 @@ return loopTimes2.map((topic, idx) => {
         <div className={`${styles.grid_item} ${styles.item78}`}>{subjects[1]?.room_name}</div>
         <div className={`${styles.grid_item} ${styles.item79}`}>{12+"/"+secondsub}</div>
         <div className={`${styles.grid_item} ${styles.item80}`}>
-        <select>
+         <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
               <option key={instructor.id} value={instructor.id}>
@@ -683,7 +685,7 @@ return loopTimes2.map((topic, idx) => {
           {20+"/"+firstsub}
         </div>
         <div className={`${styles.grid_item} ${styles.item89}`}>
-        <select>
+         <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
               <option key={instructor.id} value={instructor.id}>
@@ -695,7 +697,7 @@ return loopTimes2.map((topic, idx) => {
         </div>
         <div className={`${styles.grid_item} ${styles.item90}`}>Exam Hall</div>
         <div className={`${styles.grid_item} ${styles.item91}`}>{15+"/"+secondsub}</div>
-        <div className={`${styles.grid_item} ${styles.item92}`}>  <select>
+        <div className={`${styles.grid_item} ${styles.item92}`}>   <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
               <option key={instructor.id} value={instructor.id}>
@@ -765,7 +767,7 @@ return loopTimes2.map((topic, idx) => {
         </div>
         <div className={`${styles.grid_item} ${styles.item100}`}>Half Day</div>
         <div className={`${styles.grid_item} ${styles.item101}`}>
-        <select>
+         <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
               <option key={instructor.id} value={instructor.id}>
@@ -778,7 +780,7 @@ return loopTimes2.map((topic, idx) => {
         <div className={`${styles.grid_item} ${styles.item102}`}>HW Lab</div>
         <div className={`${styles.grid_item} ${styles.item103}`}>{18+"/"+secondsub}</div>
         <div className={`${styles.grid_item} ${styles.item104}`}>
-        <select>
+         <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
               <option key={instructor.id} value={instructor.id}>

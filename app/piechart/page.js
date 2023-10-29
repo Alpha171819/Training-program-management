@@ -13,43 +13,44 @@ import { PieChart } from 'react-minimal-pie-chart';
 
 
 const Piechart = () => {
-  const [runningSubjectsID, setRunningSubjectsID] = useState ([]);
-  console.log(" running subjects datassssssssssssssss ", runningSubjectsID);
+const[completed_subjects, setCompletedSubjects] = useState([]);
+const[uncompleted_subjects, setUncompletedSubjects] = useState([]);
+const[running_subjects, setRunningSubjects] = useState([]);
 
     const [subjects, setSubjects] = useState([]);
-    const [completedSubjects, setCompletedSubjects] = useState ([]);
-    const [selectedSubject, setSelectedSubject] = useState('');
 
-    var total_subjects=32;
+    var total_subjects=subjects.length;
 
     const [clickDisplay, setClickDisplay] = useState ([]);
 
-    var uncompleted_subjects=runningSubjectsID.length;
-    var completed_subjects=total_subjects-uncompleted_subjects -2;
+    var uncompleted_subjects_len=uncompleted_subjects.length;
+    var completed_subjects_len=completed_subjects.length;
+    
+    
 
 
 
 
 
     const url = process.env.NEXT_PUBLIC_SERVER_URL;
-    const clickDisplayORsubjects = clickDisplay.length ? clickDisplay : subjects;
+    const clickDisplayORsubjects = clickDisplay.length ? clickDisplay :[];
 
-//get the running subjects data
-useEffect(() => {
-    axios.get(`${url}/runningSubjects`).then((res) => {
-     
-      console.log(" running subjects data ", res.data);
-      setRunningSubjectsID(res.data);
-      console.log(" running subjects datassssssssssssssss ", runningSubjectsID);
-    });
-  }, [url]);
-  useEffect(() => {
-    axios.get(`${url}/completedSubjects`).then((res) => {
-      console.log(" running subjects data ", res.data);
-      setCompletedSubjects(res.data);
-      console.log(" running subjects datassssssssssssssss ", completedSubjects);
-    });
-  }, [url]);
+    // get completed subjects data
+    useEffect(() => {
+        axios.get(`${url}/completedSubjects`)
+        .then((res) => {console.log(" completed subjects datassssssssssssssss ", res.data)
+        setCompletedSubjects (res.data)
+        })
+    }, [url]);
+
+    // get uncompleted subjects data
+    useEffect(() => {
+        axios.get(`${url}/uncompletedSubjects`)
+        .then((res) => {console.log(" uncompleted subjects datassssssssssssssss ", res.data)
+        setUncompletedSubjects (res.data)
+        setRunningSubjects (res.data.slice(0,2))
+        })
+    }, [url]);
 
   // get subjects data
   useEffect(() => {
@@ -72,10 +73,13 @@ useEffect(() => {
         onClick={(event, index) => {
           switch (index) {
             case 0:
-              setClickDisplay(runningSubjectsID);
+              setClickDisplay(uncompleted_subjects);
               break;
             case 1:
-              setClickDisplay(completedSubjects);
+              setClickDisplay(completed_subjects);
+              break;
+            case 2:
+              setClickDisplay(running_subjects);
               break;
             default:
               break;
@@ -87,12 +91,12 @@ useEffect(() => {
         data={[
           {
             title: "UnCompleted Subjects",
-            value: uncompleted_subjects,
+            value: uncompleted_subjects_len,
             color: "red",
           },
           {
             title: "Completed Subjects",
-            value: completed_subjects,
+            value: completed_subjects_len,
             color: "green",
           },
           { title: "Running Subjects", value: 2, color: "orange" },
@@ -105,22 +109,12 @@ useEffect(() => {
               <thead>
                 <tr>
                   <th>Subject Name</th>
-                  <th>Subject Status</th>
                 </tr>
               </thead>
               <tbody>
                 {clickDisplayORsubjects.map((subject, idx) => (
                   <tr key={subject._id}>
                     <td>{subject.sub_name}</td>
-                    <td>
-                      {runningSubjectsID.includes(subject.sub_id) ? (
-                        <span className="badge badge-danger">
-                          Not Completed
-                        </span>
-                      ) : (
-                        <span className="badge badge-success">Completed</span>
-                      )}
-                    </td>
                   </tr>
                 ))}
               </tbody>
