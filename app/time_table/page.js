@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import axios, { all } from "axios";
 import Dashboard from "../dashboard/page";
-import { ru } from "date-fns/locale";
+import { fi, ru } from "date-fns/locale";
 import { Source_Serif_4 } from "next/font/google";
 
 // Example usage
@@ -394,8 +394,12 @@ const savetable = () => {
           )
           }
         </div>
-        <div className={`${styles.grid_item} ${styles.item38}`}>{subjects[0].room_name}</div>
-        <div className={`${styles.grid_item} ${styles.item39}`}>{4+"/"+firstsub}</div> 
+        <div className={`${styles.grid_item} ${styles.item38}`}>{
+          firstSubjectTopics[3].room_name
+        }</div>
+        <div className={`${styles.grid_item} ${styles.item39}`}>{
+          firstSubjectTopics[3].count+"/"+firstSubjectTopics[3].total
+        }</div> 
         <div className={`${styles.grid_item} ${styles.item40}`}>Self Study</div>
         <div className={`${styles.grid_item} ${styles.item41}`}>
 
@@ -416,8 +420,12 @@ const savetable = () => {
        
 
         </div>
-        <div className={`${styles.grid_item} ${styles.item42}`}>HW Lab</div>
-        <div className={`${styles.grid_item} ${styles.item43}`}>{3+"/"+secondsub}</div>
+        <div className={`${styles.grid_item} ${styles.item42}`}>
+          {secondSubjectTopics[2].room_name}
+        </div>
+        <div className={`${styles.grid_item} ${styles.item43}`}>{
+          secondSubjectTopics[2].count+"/"+secondSubjectTopics[2].total
+        }</div>
         <div className={`${styles.grid_item} ${styles.item44}`}>
          <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
@@ -524,8 +532,12 @@ return loopTimes2.map((topic, idx) => {
 
         }
         </div>
-        <div className={`${styles.grid_item} ${styles.item50}`}>{subjects[0].room_name}</div>
-        <div className={`${styles.grid_item} ${styles.item51}`}>{8+"/"+firstsub}</div>
+        <div className={`${styles.grid_item} ${styles.item50}`}>{
+          firstSubjectTopics[7].room_name
+        }</div>
+        <div className={`${styles.grid_item} ${styles.item51}`}>{
+          firstSubjectTopics[7].count+"/"+firstSubjectTopics[7].total
+        }</div>
         <div className={`${styles.grid_item} ${styles.item53}`}>   <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
@@ -535,8 +547,12 @@ return loopTimes2.map((topic, idx) => {
               )
               } )}
               </select></div>
-        <div className={`${styles.grid_item} ${styles.item54}`}>HW Lab</div>
-        <div className={`${styles.grid_item} ${styles.item55}`}>{6+"/"+secondsub}</div>
+        <div className={`${styles.grid_item} ${styles.item54}`}>
+          {secondSubjectTopics[5].room_name}
+        </div>
+        <div className={`${styles.grid_item} ${styles.item55}`}>{
+          secondSubjectTopics[5].count+"/"+secondSubjectTopics[5].total
+        }</div>
         <div className={`${styles.grid_item} ${styles.item56}`}>
          <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
@@ -640,8 +656,12 @@ return loopTimes2.map((topic, idx) => {
 
         }
         </div>
-        <div className={`${styles.grid_item} ${styles.item62}`}>{subjects[0].room_name}</div>
-        <div className={`${styles.grid_item} ${styles.item63}`}>{12+"/"+firstsub}</div>
+        <div className={`${styles.grid_item} ${styles.item62}`}>{
+          firstSubjectTopics[11].room_name
+        }</div>
+        <div className={`${styles.grid_item} ${styles.item63}`}>{
+          firstSubjectTopics[11].count+"/"+firstSubjectTopics[11].total
+        }</div>
         <div className={`${styles.grid_item} ${styles.item64}`}>Half Day</div>
         <div className={`${styles.grid_item} ${styles.item665}`}>   <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
@@ -652,8 +672,12 @@ return loopTimes2.map((topic, idx) => {
               )
               } )}
               </select></div>
-        <div className={`${styles.grid_item} ${styles.item66}`}>HW Lab</div>
-        <div className={`${styles.grid_item} ${styles.item67}`}>{9+"/"+secondsub}</div>
+        <div className={`${styles.grid_item} ${styles.item66}`}>
+          {secondSubjectTopics[8].room_name}
+        </div>
+        <div className={`${styles.grid_item} ${styles.item67}`}>{
+          secondSubjectTopics[8].count+"/"+secondSubjectTopics[8].total
+        }</div>
         <div className={`${styles.grid_item} ${styles.item68}`}>
          <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
@@ -757,8 +781,12 @@ return loopTimes2.map((topic, idx) => {
 
         }
         </div>
-        <div className={`${styles.grid_item} ${styles.item74}`}>{subjects[0].room_name}</div>
-        <div className={`${styles.grid_item} ${styles.item75}`}>{16+"/"+firstsub}</div>
+        <div className={`${styles.grid_item} ${styles.item74}`}>{
+          firstSubjectTopics[15].room_name
+        }</div>
+        <div className={`${styles.grid_item} ${styles.item75}`}>{
+          firstSubjectTopics[15].count+"/"+firstSubjectTopics[15].total
+        }</div>
         <div className={`${styles.grid_item} ${styles.item76}`}>Self Study</div>
         <div className={`${styles.grid_item} ${styles.item77}`}>   <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
@@ -769,8 +797,12 @@ return loopTimes2.map((topic, idx) => {
               )
               } )}
               </select></div>
-        <div className={`${styles.grid_item} ${styles.item78}`}>{subjects[1]?.room_name}</div>
-        <div className={`${styles.grid_item} ${styles.item79}`}>{12+"/"+secondsub}</div>
+        <div className={`${styles.grid_item} ${styles.item78}`}>{
+          secondSubjectTopics[11].room_name
+        }</div>
+        <div className={`${styles.grid_item} ${styles.item79}`}>{
+          secondSubjectTopics[11].count+"/"+secondSubjectTopics[11].total
+        }</div>
         <div className={`${styles.grid_item} ${styles.item80}`}>
          <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
@@ -874,9 +906,11 @@ return loopTimes2.map((topic, idx) => {
 
         }
         </div>
-        <div className={`${styles.grid_item} ${styles.item86}`}>{subjects[0].room_name}</div>
+        <div className={`${styles.grid_item} ${styles.item86}`}>{
+          firstSubjectTopics[19].room_name
+        }</div>
         <div className={`${styles.grid_item} ${styles.item87}`}>
-          {20+"/"+firstsub}
+          {firstSubjectTopics[19].count+"/"+firstSubjectTopics[19].total}
         </div>
         <div className={`${styles.grid_item} ${styles.item89}`}>
          <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
@@ -889,8 +923,12 @@ return loopTimes2.map((topic, idx) => {
               } )}
               </select>
         </div>
-        <div className={`${styles.grid_item} ${styles.item90}`}>Exam Hall</div>
-        <div className={`${styles.grid_item} ${styles.item91}`}>{15+"/"+secondsub}</div>
+        <div className={`${styles.grid_item} ${styles.item90}`}>
+          {secondSubjectTopics[14].room_name}
+        </div>
+        <div className={`${styles.grid_item} ${styles.item91}`}>{
+          secondSubjectTopics[14].count+"/"+secondSubjectTopics[14].total
+        }</div>
         <div className={`${styles.grid_item} ${styles.item92}`}>   <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
                 return(
@@ -993,9 +1031,11 @@ return loopTimes2.map((topic, idx) => {
         }
 
         </div>
-        <div className={`${styles.grid_item} ${styles.item98}`}>{subjects[0].room_name}</div>
+        <div className={`${styles.grid_item} ${styles.item98}`}>{
+          firstSubjectTopics[23].room_name
+        }</div>
         <div className={`${styles.grid_item} ${styles.item99}`}>
-          {24+"/"+firstsub}
+          {firstSubjectTopics[23].count+"/"+firstSubjectTopics[23].total}
         </div>
         <div className={`${styles.grid_item} ${styles.item100}`}>Half Day</div>
         <div className={`${styles.grid_item} ${styles.item101}`}>
@@ -1009,8 +1049,12 @@ return loopTimes2.map((topic, idx) => {
               } )}
               </select>
         </div>
-        <div className={`${styles.grid_item} ${styles.item102}`}>HW Lab</div>
-        <div className={`${styles.grid_item} ${styles.item103}`}>{18+"/"+secondsub}</div>
+        <div className={`${styles.grid_item} ${styles.item102}`}>
+          {secondSubjectTopics[17].room_name}
+        </div>
+        <div className={`${styles.grid_item} ${styles.item103}`}>{
+          secondSubjectTopics[17].count+"/"+secondSubjectTopics[17].total
+        }</div>
         <div className={`${styles.grid_item} ${styles.item104}`}>
          <select style={{  border: "none" , WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none'}}>
               { instructors.map((instructor) => {
