@@ -11,6 +11,8 @@ const Home = () => {
 
   useEffect(() => {
     axios.get(`${url}/courses`).then((res) => {
+        console.log("course data is ", res.data);
+
       const updatedData = res.data.map((item) => {
         const startDate = new Date(item.start_date);
         const endDate = new Date(item.end_date);
@@ -18,24 +20,15 @@ const Home = () => {
         return { ...item, durationInWeeks };
       });
       setDate(updatedData);
+      console.log("updated data is ", updatedData);
     });
   }, [url]);
 
-  const deleteSubject = (id) => {
-    // alert to confirm delete
-    if (!confirm("Are you sure you want to delete this subject?")) return;
-    axios
-      .delete(`${url}/subject/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        window.location.reload();
-      })
-      .catch((error) => console.log(error));
-  };
+
 
   function deleteCourse(id) {
     // alert to confirm delete
-    if (!confirm("Are you sure you want to delete this course?")) return;
+    if (!confirm("Are you sure you want to delete this course..?")) return;
     axios
       .delete(`${url}/courses/${id}`)
       .then((res) => {
@@ -62,7 +55,7 @@ const Home = () => {
         <h2>Courses</h2>
         <ul className={styles["responsive-table"]}>
           <li className={`${styles["table-header"]} ${styles.row} `}>
-            <div className={`${styles.col} ${styles["col-1"]}`}>Course ID</div>
+            <div className={`${styles.col} ${styles["col-1"]}`}>N.O</div>
             <div className={`${styles.col} ${styles["col-2"]}`}>
               Course Name
             </div>
@@ -82,7 +75,7 @@ const Home = () => {
             <div className={`${styles.col} ${styles["col-4"]}`}>Action</div>
           </li>
 
-          {data?.map((item) => (
+          {data?.map((item, idx) => (
             <li
               key={item.course_id}
               className={`${styles["table-row"]}  ${styles.row}`}
@@ -92,7 +85,7 @@ const Home = () => {
                 data-label="Job Id"
               >
                 {" "}
-                {item.course_id}
+                {idx + 1}
               </div>
               <div
                 className={`${styles.col} ${styles["col-2"]}`}
@@ -141,13 +134,7 @@ const Home = () => {
                 className={`${styles.col} ${styles["col-4"]} ${styles["flex"]} `}
                 data-label="Payment Status"
               >
-                <button
-                  type="submit"
-                  className={styles.button}
-                  formAction="sub1"
-                >
-                  ADD
-                </button>
+              
                 <button
                   type="submit"
                   onClick={() => {

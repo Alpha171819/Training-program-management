@@ -12,30 +12,56 @@ import { set } from 'date-fns';
 
 const Selectsubjectfortopic = () => {
     const [subjects, setSubjects] = useState([]);
+    const [data, setDate] = useState([]);
+    const [selectedCourse, setSelectedCourse] = useState('');
     const [selectedSubject, setSelectedSubject] = useState('');
 
     const [topics, setTopics] = useState([]); // Add this line
   
     const url = process.env.NEXT_PUBLIC_SERVER_URL
+    console.log("selected course is", selectedCourse);
+
+    function calculateWeeks(start, end) {
+      const millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
+      const durationInMilliseconds = end.getTime() - start.getTime();
+      const durationInWeeks = Math.floor(
+        durationInMilliseconds / millisecondsPerWeek
+      );
+      return durationInWeeks;
+    }
 
     useEffect(() => {
+      axios.get(`${url}/courses`).then((res) => {
+        const updatedData = res.data.map((item) => {
+          const startDate = new Date(item.start_date);
+          const endDate = new Date(item.end_date);
+          const durationInWeeks = calculateWeeks(startDate, endDate);
+          return { ...item, durationInWeeks };
+        });
+        setDate(updatedData);
+
+       
+
+      });
+    }, [url]);
+    useEffect(() => {
       axios
-        .get(`${url}/subjects`) // Replace with your API endpoint for fetching subjects
+        .get(`${url}/subjectsssss/${selectedCourse}`) // Replace with your API endpoint for fetching subjects
         .then((res) => setSubjects(res.data))
         .catch((error) => console.log(error));
       
-    }, [url]);
+    }, [selectedCourse, url]);
 
 useEffect(() => {
     console.log("selected subject is", selectedSubject);
-    axios.get(`${url}/topic/${selectedSubject}`)
+    axios.get(`${url}/topic/${selectedSubject}/${selectedCourse}`)
     .then((res) => {setTopics(res.data)
         console.log(res.data, 'topicsssssssssssssssssssssssssssss')
     })
     .catch((error) => console.log(error));
   
 }
-, [selectedSubject]);
+, [selectedSubject,url,selectedCourse]);
 
 const deleteTopic = (id) => {
     // alert to confirm delete
@@ -54,7 +80,32 @@ const deleteTopic = (id) => {
   return (
     <div>
       <Dashboard />
+
     <div className={styles.container}>
+    <h1>Select a Course To View Subjects</h1>
+     
+     <form className={styles.form}>
+     <div className={styles.formGroup}>
+         <label htmlFor="subject">Courses</label>
+         <select
+           name="subject"
+           id="subject"
+           value={selectedCourse}
+           onChange={(e) => setSelectedCourse(e.target.value)}
+         >
+          <option value="">Select a Course</option>
+           {data.map((subject) => (
+             <option key={subject.course_name} value={subject.course_id}>
+               {subject.course_name} {subject.course_id}
+             </option>
+           ))}
+         </select>
+       
+       </div>
+
+       
+      
+     </form>
       <h1>Select a Subject To View Topics</h1>
      
       <form className={styles.form}>

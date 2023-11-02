@@ -104,7 +104,7 @@ const AddTopic = () => {
       <h1>Add Topic</h1>
       <button
         className={styles.topButton}
-        onClick={() => (window.location.href = "/displayTopics")}
+        onClick={() => (window.location.href = "/selectsubjectfortopic")}
       >
         View All Topics
       </button>

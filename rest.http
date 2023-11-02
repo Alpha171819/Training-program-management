@@ -2,4 +2,12 @@ GET http://localhost:3131/getFirstSubjectTopics/6
 
 ###
 
-GET http://localhost:3131/getSecondSubjectTopics/6
+GET http://localhost:3131/subjects/2
+
+###
+
+GET http://localhost:3131/settingtopicsfromexp
+
+###
+
+GET http://localhost:3131/settingtopicsfromexp_2

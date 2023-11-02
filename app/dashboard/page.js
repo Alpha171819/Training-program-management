@@ -35,7 +35,7 @@ const Dashboard = () => {
             <a href="#">Subjects</a>
             <ol className={styles.subList}>
               <li><a href="/addsubject">Add Subjects</a></li>
-              <li><a href="/view_subjects">View Subjects</a></li>
+              <li><a href="/selectcourseforsubject">View Subjects</a></li>
             </ol>
           </li>
           <li className={styles.training}>

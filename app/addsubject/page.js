@@ -69,8 +69,9 @@ const AddSubject = () => {
   return (
     <>
       <Dashboard />
-      <h2>Add Subject</h2>
+      
       <form className={styles.subjectForm} onSubmit={handleSubmit}>
+      <h2>Add Subject</h2>
         <div className={styles.formGroup}>
           <label htmlFor="subjectName">Subject Name:</label>
           <input
